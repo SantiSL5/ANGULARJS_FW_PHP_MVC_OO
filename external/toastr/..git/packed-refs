@@ -1,0 +1,32 @@
+# pack-refs with: peeled fully-peeled sorted 
+1c3f404acbcde8a317ba908df435f43e5a0dd613 refs/remotes/origin/TimFerrell-patch-1
+2fac39705f5ce4a208e571571beae186296888cf refs/remotes/origin/add-license-1
+8d7f67421019b9011c4d4eed53ec1ba7a9c3e151 refs/remotes/origin/dependabot/npm_and_yarn/jquery-3.5.0
+5aa4d245930909b386452d363906270ef47cc89c refs/remotes/origin/develop
+9bf9c7e261dd1140923712de4c429a6c9dc1438b refs/remotes/origin/fix/sweeping
+aeb0f539f7f7aa074ed43317dc0bf2b496967dca refs/remotes/origin/gh-pages
+a745a0fa04118338e962f67e08c0266bf822a9d0 refs/remotes/origin/maint
+50092cc604850a16c985520b63df184d3e0b4086 refs/remotes/origin/master
+7f8e2cbdcb3eeb4866eb9966823ee65f35df986f refs/remotes/origin/v3
+7108ff802d088eb4e794ba8c73fedb21bad471de refs/tags/1.1.5
+dd9df2348a312ebaaac79582dabc2f7030caf5c9 refs/tags/1.3.0
+^fd0654103cf2988ead64a7d05750f891d3f7c22a
+52d732752a5d139c6036a2551fa1711475a3a58e refs/tags/1.3.1
+^7836a22e4f473fbfa2ab1491322859af0287f455
+64f27f50edf95754705d335a151daf7b2668a2d6 refs/tags/2.0.0
+^fcb37504d25832e2b5cf8c3c524080b92816967b
+fc11d4f89909d2c0ec71d9d4ad568d5046eeb7dc refs/tags/2.0.1
+^2432b3e86d35dd9d8c8cb3c7380d03114ad8edb2
+81e9b98f1211b011888186d00ed90887b53ac9f2 refs/tags/2.0.3
+^dd86ea3e4936d3815751b9bf36a73adf959a1f47
+c269fcf4ae5cefa72018020e1b2c879553231d86 refs/tags/2.1.0
+^45d0909f233184305f90d9cd3d61b1186c762e63
+7e3b92d9254ddfc4b1ea2f1341028ea814ced00f refs/tags/2.1.1
+7655e7f6644d045b3ab91f9e5f965a07822a0d7f refs/tags/2.1.2
+^b957ae9f38e6856346a0200e83281b08ca717a7d
+154358244d380445d742a3f539877a1aa7f954cf refs/tags/2.1.3
+acf6e29d6de175504fcee98d44fdcd3acee7a50b refs/tags/2.1.4
+^1ef00d723691b563b610077a08539391386826b3
+9d04cb2a6d90dea487c3d692d4d301cf96cc0a36 refs/tags/v1.2.0
+10edc293f5f08063bbb2d226f115e93d944d602b refs/tags/v1.2.1
+cd5e9805e203b7c13ae9784d8b59de0993cabbcf refs/tags/v1.2.2

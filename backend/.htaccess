@@ -1,0 +1,9 @@
+RewriteEngine on
+ErrorDocument 404 /view/inc/404.html
+ErrorDocument 503 /view/inc/503.html
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+Rewriterule ^([^/]*)/([^/]*)/([^/]*)$ index.php?page=$1&op=$2&arg=$3 [L,NC,QSA]
+Rewriterule ^([^/]*)/([^/]*)$ index.php?page=$1&op=$2 [L,NC,QSA]
+Rewriterule ^([^/]*)$ index.php?page=$1 [L,NC,QSA]

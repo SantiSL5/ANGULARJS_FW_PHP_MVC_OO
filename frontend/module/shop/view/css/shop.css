@@ -1,0 +1,117 @@
+#shop {
+    display: flex;
+    height: auto;
+}
+
+#sidebar {
+    border: 1px solid black;
+    height: auto;
+    width: 15%;
+}
+
+#container-products {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid green;
+    width: 85%;
+    height: auto;
+}
+
+
+.card {
+    height: 500px;
+    width: 300px;
+    border: 4px solid black;
+    margin: 20px;
+    background-color: lime;
+}
+
+.infodiv {
+    border-top: 1px solid black;
+    height: 170px;
+}
+
+.infodiv ul {
+    list-style: none;
+    padding-top: 20px;
+}
+
+.infodivdetails ul {
+    list-style: none;
+    padding-top: 20px;
+}
+
+.divbutton {
+    text-align: right;
+}
+
+.divbutton * {
+    padding-right: 5px;
+}
+
+#amount {
+    border:0; 
+    color:#f6931f; 
+    font-weight:bold;
+    width: 100%;
+    text-align: center;
+}
+
+#filters select {
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+#slider-range {
+    width: 80%;
+    left: 10%;
+    margin-bottom: 30px;
+}
+
+#pagination {
+    width: 100%;
+    text-align: center;
+    border: black 1px solid;
+}
+
+#details {
+    background-color: chartreuse;
+    text-align: center;
+    width: 100%;
+    margin-right: 20%;
+    margin-left:20%;
+    padding-bottom: 30px;
+}
+
+.cleandetails {
+    height: 60px;
+	margin: none;
+    background: rgba(7, 7, 7, 0.788);
+    color: rgba(255, 255, 255, 1);
+	/* color: rgba(0, 0, 0, 0.5); */
+	font-size: 23px;
+	width: 200px;
+	height: 60px;
+	line-height: 30px;
+	border-radius: 0;
+	text-align: center;
+}
+
+.cleandetails :hover {
+	background: rgba(0, 0, 0, 0.9);
+	color: #FFF;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.eye {
+    width:30px;
+}
+
+.like,.not_like {
+    width:25px;
+}

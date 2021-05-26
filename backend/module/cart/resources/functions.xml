@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>list</name>
+        <uri>list</uri>
+    </function>
+    <function>
+        <name>listCart</name>
+        <uri>listCart</uri>
+    </function>
+    <function>
+        <name>menuCart</name>
+        <uri>menuCart</uri>
+    </function>
+    <function>
+        <name>addCart</name>
+        <uri>addCart</uri>
+    </function>
+    <function>
+        <name>totalCart</name>
+        <uri>totalCart</uri>
+    </function>
+    <function>
+        <name>addQuant</name>
+        <uri>addQuant</uri>
+    </function>
+    <function>
+        <name>substQuant</name>
+        <uri>substQuant</uri>
+    </function>
+    <function>
+        <name>checkout</name>
+        <uri>checkout</uri>
+    </function>
+</functions>

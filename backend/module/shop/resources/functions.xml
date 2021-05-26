@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>list</name>
+        <uri>list</uri>
+        <name>listall</name>
+        <uri>listall</uri>
+        <name>details</name>
+        <uri>details</uri>
+        <name>plataforms</name>
+        <uri>plataforms</uri>
+        <name>categories</name>
+        <uri>categories</uri>
+        <name>rangeslider</name>
+        <uri>rangeslider</uri>
+        <name>showlike</name>
+        <uri>showlike</uri>
+        <name>like</name>
+        <uri>like</uri>
+    </function>
+</functions>

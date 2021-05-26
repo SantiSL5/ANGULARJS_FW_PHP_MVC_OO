@@ -1,0 +1,14 @@
+{
+    "val" : {
+        "Language" : "Idioma",
+        "Homepage" : "Inici",
+        "Videogames" : "Videojocs",
+        "Services" : "Serveis",
+        "About Us" : "Sobre Nosaltres",
+        "Contact Us" : "Contacte",
+        "Shop":"Tenda",
+        "Spanish" : "Espanyol",
+        "English" : "Anglés",
+        "Valencian" : "Valencià"
+    }
+}

@@ -1,0 +1,22 @@
+<div id="home">
+    <data-owl-carousel id="main-carousel" class="owl-carousel" carousel-type="{type:'main'}">
+        <div owl-carousel-item="" ng-repeat="item in carousel" class="item">
+            <div id="{{item['category_name']}}div">
+                <img src="{{item['img']}}">
+                <button id="{{item['category_name']}}" class="category">{{item['category_name']}}</button>
+            </div>
+        </div>
+    </data-owl-carousel>
+    <div id="plataformtextdiv">
+        <h1>Plataforms</h1>
+    </div>
+    <data-owl-carousel id="secundary-carousel" class="owl-carousel" carousel-type="{type:'secundary'}">
+        <div owl-carousel-item="" ng-repeat="item in plataforms" class="item">
+            <div id="{{item['plataforma']}}div" class="plataformdiv">
+                <img src="{{item['img']}}">
+                <h1>{{item['plataforma']}}</h1>
+                <button id="{{item['plataforma']}}" class="plataform">{{::item['plataforma']}}</button>
+            </div>
+        </div>
+    </data-owl-carousel>
+</div>
