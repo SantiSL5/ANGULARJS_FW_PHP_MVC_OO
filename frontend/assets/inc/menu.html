@@ -7,29 +7,29 @@
 		<div class="collapse navbar-collapse justify-content-between" id="navbarNav">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a href="/home" data-tr = "Homepage" class="nav-link"></a>
+					<a href="#/home" data-tr = "Homepage" class="nav-link"></a>
 				</li>
 				<li class="nav-item">
-					<a href="/controller_videogame/list" data-tr = "Videogames" class="nav-link"></a>
+					<a href="#/controller_videogame/list" data-tr = "Videogames" class="nav-link"></a>
 				</li>
 				<li class="nav-item">
-					<a href="/aboutus" data-tr = "About Us" class="nav-link"></a>
+					<a href="#/aboutus" data-tr = "About Us" class="nav-link"></a>
 				</li>
 				<li class="nav-item">
-					<a href="/contact" data-tr = "Contact Us" class="nav-link"></a>
+					<a href="#/contact" data-tr = "Contact Us" class="nav-link"></a>
 				</li>
 				<li class="nav-item">
-					<a href="/services" data-tr = "Services" class="nav-link"></a>
+					<a href="#/services" data-tr = "Services" class="nav-link"></a>
 				</li>
 				<li class="nav-item">
-					<a href="/shop" data-tr = "Shop" class="nav-link"></a>
+					<a href="#/shop" data-tr = "Shop" class="nav-link"></a>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-tr="Language"></a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li><a class="dropdown-item" data-tr = "Valencian" id = "btn-val"></a></li>
-						<li><a class="dropdown-item" data-tr = "Spanish" id = "btn-es"></a></li>
-						<li><a class="dropdown-item" data-tr = "English" id = "btn-en"></a></li>
+						<li><a class="dropdown-item" data-tr = "Valencian" id = "btn-val" ng-click="changelang('val')"></a></li>
+						<li><a class="dropdown-item" data-tr = "Spanish" id = "btn-es" ng-click="changelang('es')"></a></li>
+						<li><a class="dropdown-item" data-tr = "English" id = "btn-en" ng-click="changelang('en')"></a></li>
 					</ul>
 				</li>
 				<form class="d-flex">

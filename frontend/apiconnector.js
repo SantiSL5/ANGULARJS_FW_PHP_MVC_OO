@@ -46,6 +46,20 @@ arcadeshop.factory("services", ['$http','$q', function ($http, $q) {
             });
           return promise;
         };
+
+        obj.postfile = function (url) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+            $http({
+                  method: 'POST',
+                  url: url
+              }).success(function(response, status, headers, config) {
+                 defered.resolve(response);
+              }).error(function(error, status, headers, config) {
+                 defered.reject(error);
+              });
+            return promise;
+        };
         
     return obj;
 }]);

@@ -1,7 +1,7 @@
 // , 'toastr', 'ui.bootstrap'
 var arcadeshop = angular.module('arcadeshop', ['ngRoute']);
 arcadeshop.config(['$routeProvider', '$locationProvider',
-function ($routeProvider, $locationProvider) {
+    function ($routeProvider, $locationProvider) {
         $routeProvider
                 .when("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller",
                     resolve: {
@@ -12,7 +12,50 @@ function ($routeProvider, $locationProvider) {
                             return services.get('home','plataforms');
                         }
                     }
-                })
+                }).when("/home", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller",
+                    resolve: {
+                        carousel: function (services) {
+                            return services.get('home','carousel');
+                        },
+                        plataforms: function (services) {
+                            return services.get('home','plataforms');
+                        }
+                    }
+                }).otherwise("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller"});
+    }]);
+
+arcadeshop.run(function($rootScope, $location, services) {
+
+    $rootScope.changelang = function(lang) {
+        lang = lang || localStorage.getItem('app-lang') || 'en';
+        localStorage.setItem('app-lang', lang);
+        var dataelm = document.querySelectorAll('[data-tr]');
+        services.postfile('http://localhost/frontend/assets/lang/' + lang + '.json').then(function(response) {
+            for (var i = 0; i < dataelm.length; i++) {
+                if (response.hasOwnProperty(lang)) {
+                    dataelm[i].innerHTML=response[lang][dataelm[i].dataset.tr];
+                }else{
+                    dataelm[i].innerHTML=dataelm[i].dataset.tr;
+                }
+            }
+        });
+    }
+
+    $rootScope.$on("$routeChangeSuccess", function(event, current, previous){
+        $rootScope.changelang();
+    });
+
+});
+               // .when("/home", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller",
+                //     resolve: {
+                //         carousel: function (services) {
+                //             return services.get('home','carousel');
+                //         },
+                //         plataforms: function (services) {
+                //             return services.get('home','plataforms');
+                //         }
+                //     }
+                // })
 
                 // .when("/home/:id", {
                 //     templateUrl: "frontend/modules/home/view/details.view.html",
@@ -92,6 +135,3 @@ function ($routeProvider, $locationProvider) {
                 //         }
                 //     }
                 // })
-                
-                .otherwise("/", {templateUrl: "frontend/modules/home/view/home.view.html", controller: "mainCtrl"});
-    }]);
