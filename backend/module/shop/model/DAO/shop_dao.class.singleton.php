@@ -43,7 +43,7 @@
             $row2 = $res2->fetch_assoc();
 
             if ($row2['count']==0) {
-                return $row2['count'];
+                return $row2;
             }else{
                 while($row = $res->fetch_array(MYSQLI_ASSOC)) {
                     $resArray[] = $row;

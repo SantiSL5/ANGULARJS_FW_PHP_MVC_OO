@@ -1,9 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<div class="container-fluid">
-		<!-- <a class="navbar-brand" href="#">Navbar</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button> -->
 		<div class="collapse navbar-collapse justify-content-between" id="navbarNav">
 			<ul class="navbar-nav">
 				<li class="nav-item">
@@ -25,15 +21,29 @@
 				</li>
 				<form class="d-flex">
 					<div class = "input">
-						<input id="input_search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" autocomplete=off>
-						<div id="searchAutocomplete"></div>
+						<input id="input_search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" autocomplete=off ng-model="inputsearch" ng-keyup="autoComplete()">
+						<div id="searchAutocomplete" ng-show="found == true">
+							<div ng-repeat="names in resultsearch">{{names['nombre']}}</div>
+						</div>
 					</div>
-
-
-					<button id="button_search" name="button_search" class="btn btn-outline-success" type="button">Search</button>
+					<button id="button_search" name="button_search" class="btn btn-outline-success" type="button" ng-click="searchjump()">Search</button>
 				</form>
 			</ul>
-			<div id="account-navbar"></div>
+			<div id="account-navbar">
+				<ul class="navbar-nav justify-content-end" ng-show="logued == true">
+					<li class="nav-item">
+						<a id="username_menu" class="nav-link"></a>
+						<img src="" id="avatar_menu">
+						<button id="logoutbtn-nav" class="btn btn-outline-success me-2">Logout</button>
+					</li>
+				</ul>
+				<ul class="navbar-nav justify-content-end" ng-show="logued == false">
+					<li class="nav-item">
+						<button id="registerbtn-nav" class="btn btn-outline-success me-2" ng-click="registerbtn()">Register</button>
+						<button id="loginbtn-nav" class="btn btn-outline-success me-2"ng-click="loginbtn()">Login</button>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </nav>

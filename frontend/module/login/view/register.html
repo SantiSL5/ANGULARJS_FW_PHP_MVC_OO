@@ -6,15 +6,15 @@
         </div>
         <div id="content-register">
             <form id="register-form">
-                <input id="user-register" type="text" placeholder="Username">
-                <p id="error-user-register" class="error"></p>
-                <input id="email-register" type="email" placeholder="Email">
-                <p id="error-email-register" class="error"></p>
-                <input id="password-register" type="password" placeholder="Password">
-                <p id="error-password-register" class="error"></p>
-                <input id="confpassword-register" type="password" placeholder="Confirm Password">
-                <p id="error-confpassword-register" class="error"></p>
-                <button name="register-btn" type="button" id="register-btn">Register</button>
+                <input id="user-register" type="text" placeholder="Username" ng-model="userRegister" ng-change="userRegister()">
+                <p id="error-user-register" class="error">{{userRegisterError}}</p>
+                <input id="email-register" type="email" placeholder="Email" ng-model="emailRegister" ng-change="emailRegister()">
+                <p id="error-email-register" class="error">{{emailRegisterError}}</p>
+                <input id="password-register" type="password" placeholder="Password" ng-model="passwordRegister" ng-change="passwordRegister()">
+                <p id="error-password-register" class="error">{{passwordRegisterError}</p>
+                <input id="confpassword-register" type="password" placeholder="Confirm Password" ng-model="confPasswordRegister" ng-change="confPasswordRegister()">
+                <p> id="error-confpassword-register" class="error">{{confPasswordRegisterError}</p>
+                <button name="register-btn" type="button" id="register-btn" ng-click="register()">Register</button>
             </form>
         </div>
     </div>

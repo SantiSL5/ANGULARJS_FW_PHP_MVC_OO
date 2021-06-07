@@ -26,7 +26,7 @@
                 <button ng-click="cleanfilters()">Clean filters</button>
             </form>
         </div>
-        <div id="container-products">
+        <div id="container-products" ng-show="existproducts == true">
             <div class="card-shop" ng-repeat="videogame in allproducts">
                 <div class="general_img">
                     <img src="{{videogame['img']}}"/>
