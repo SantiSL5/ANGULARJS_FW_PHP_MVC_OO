@@ -38,7 +38,7 @@ arcadeshop.factory("services", ['$http','$q', function ($http, $q) {
                 url: serviceBase + module + '&op=' + functi,
                 data: dada
             }).success(function(data, status, headers, config) {
-      	        //console.log(serviceBase + module + '&op=' + functi);
+      	      //   console.log(serviceBase + module + '&op=' + functi);
               //debugger;
                defered.resolve(data);
             }).error(function(data, status, headers, config) {

@@ -1,3 +1,36 @@
-<div id="shop">
-    
+<div>
+    <div id="shop">
+        <div id="sidebar"></div>
+        <div id="container-products">
+            <div class="card-shop" ng-repeat="videogame in allproducts">
+                <div class="general_img">
+                    <img src="{{videogame['img']}}"/>
+                </div>
+                
+                <div class="infodiv">
+                    <ul>
+                        <li>{{videogame['nombre']}}</li>
+                        <li>{{videogame['plataforma']}}</li>
+                        <li>{{videogame['clasificacion']}}</li>
+                        <li>{{videogame['estado']}}</li>
+                    </ul>
+                </div>
+                <div class="divbutton">
+                    <span class="likes">{{videogame['likes']}}</span>
+                    <img class="not_like" src="frontend/assets/img/heart.png">
+                    <span class="views">{{videogame['views']}}</span>
+                    <img class="eye" src="frontend/assets/img/eye.png">
+                    <span class="price">{{videogame['precio']}}€</span>
+                    <button class="showdetails">Show details</button>
+                    <img class="cartbtn_shop" src="frontend/assets/img/cart.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="pagination">
+       <button ng-click="previouspage()"><</button>
+       <button ng-repeat="page in pages_showed" ng-click="changepage()">{{page}}</button>
+       <button ng-click="nextpage()">></button>
+
+    </div>
 </div>

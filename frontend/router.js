@@ -21,6 +21,12 @@ arcadeshop.config(['$routeProvider', '$locationProvider',
                             return services.get('home','plataforms');
                         }
                     }
+                }).when("/shop", {templateUrl: "frontend/module/shop/view/shop.html", controller: "shop_controller",
+                    // resolve: {
+                    //     allproducts: function (services) {
+                    //         return services.get('shop','listall');
+                    //     },
+                    // }
                 }).otherwise("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller"});
     }]);
 
@@ -30,7 +36,7 @@ arcadeshop.run(function($rootScope, $location, services) {
         lang = lang || localStorage.getItem('app-lang') || 'en';
         localStorage.setItem('app-lang', lang);
         var dataelm = document.querySelectorAll('[data-tr]');
-        services.postfile('http://localhost/frontend/assets/lang/' + lang + '.json').then(function(response) {
+        services.postfile('http://localhost/frontend/assets/general/lang/' + lang + '.json').then(function(response) {
             for (var i = 0; i < dataelm.length; i++) {
                 if (response.hasOwnProperty(lang)) {
                     dataelm[i].innerHTML=response[lang][dataelm[i].dataset.tr];

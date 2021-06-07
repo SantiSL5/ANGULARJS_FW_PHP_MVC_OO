@@ -15,31 +15,42 @@
         }
 
         function listall(){
+            $num_page=$_POST['num_page'];
             $minrange=$_POST['minrange'];
             $maxrange=$_POST['maxrange'];
+            if (!$minrange) {
+                $minrange=$this->rangeslider()[0]['minim'];
+            }
+            if (!$maxrange) {
+                $maxrange=$this->rangeslider()[0]['maxim'];
+            }
+            $limit=4;
+            if (!$num_page) {
+                $offset=0;
+            }else {
+                $offset=($num_page-1)*$limit;
+            }
             $plataform=$_POST['plataform'];
             $age=$_POST['age'];
             $genero=$_POST['genero'];
             $nombre=$_POST['search'];
-            $sql2 = "SELECT COUNT(id) AS count FROM videogames WHERE plataforma LIKE '%$plataform%' AND clasificacion LIKE '%$age%' AND generos LIKE '%$genero%' AND nombre LIKE '$nombre' ORDER BY views";
-            $sql = "SELECT * FROM videogames WHERE precio BETWEEN $minrange AND $maxrange AND plataforma LIKE '%$plataform%' AND clasificacion LIKE '%$age%' AND generos LIKE '%$genero%' AND nombre LIKE '%$nombre%' ORDER BY views DESC";
+            $sql2 = "SELECT COUNT(id) AS count FROM videogames WHERE plataforma LIKE '%$plataform%' AND clasificacion LIKE '%$age%' AND generos LIKE '%$genero%' AND nombre LIKE '%$nombre%' ORDER BY views";
+            $sql = "SELECT * FROM videogames WHERE precio BETWEEN $minrange AND $maxrange AND plataforma LIKE '%$plataform%' AND clasificacion LIKE '%$age%' AND generos LIKE '%$genero%' AND nombre LIKE '%$nombre%' ORDER BY views DESC LIMIT $limit OFFSET $offset";
             $conexion = connect::con();
             $res = mysqli_query($conexion, $sql);
-            $res2 =mysqli_query($conexion, $sql2);
+            $res2 = mysqli_query($conexion, $sql2);
             connect::close($conexion);
-            while($row = $res->fetch_array(MYSQLI_ASSOC)) {
-                $resArray[] = $row;
-            }
-            while($row2 = $res2->fetch_array(MYSQLI_ASSOC)) {
-                $resArray2[] = $row2;
-            }
+            $row2 = $res2->fetch_assoc();
 
-            if (!$resArray) {
-                return $resArray2;
+            if ($row2['count']==0) {
+                return $row2['count'];
             }else{
-
-                $resArraytotal[] = array_merge($resArray2,$resArray);  
-                return $resArraytotal[0];
+                while($row = $res->fetch_array(MYSQLI_ASSOC)) {
+                    $resArray[] = $row;
+                }
+                $resArraytotal[0] = $row2['count'];
+                $resArraytotal[1] = $resArray;
+                return $resArraytotal;
             }
         }
 

@@ -1,0 +1,35 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:5.6
+    container_name: docker-mysql
+    environment:
+      MYSQL_DATABASE: 
+      MYSQL_USER: 
+      MYSQL_PASSWORD: 
+      MYSQL_ROOT_PASSWORD: 
+    ports:
+      - "3310:3306"
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - db-data
+
+  web:
+    image: php:7.3-apache
+    container_name: docker-php
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/var/www/html
+    networks:
+      - backend
+
+      
+networks:
+  backend:
+
+volumes:
+  db-data:
+

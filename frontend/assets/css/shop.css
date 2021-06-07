@@ -17,13 +17,21 @@
     height: auto;
 }
 
-
-.card {
-    height: 500px;
-    width: 300px;
+.card-shop {
+    height: auto;
+    width: 330px;
     border: 4px solid black;
     margin: 20px;
     background-color: lime;
+}
+
+.general_img {
+    text-align: center;
+}
+
+.general_img img {
+    height: 300px;
+    width: 290px;
 }
 
 .infodiv {
@@ -43,14 +51,15 @@
 
 .divbutton {
     text-align: right;
+    padding-bottom: 5px;
 }
 
-.divbutton * {
+.divbutton img {
     padding-right: 5px;
 }
 
 #amount {
-    border:0; 
+    border:0;
     color:#f6931f; 
     font-weight:bold;
     width: 100%;
@@ -114,4 +123,8 @@
 
 .like,.not_like {
     width:25px;
+}
+
+.cartbtn_shop {
+    height: 30px;
 }

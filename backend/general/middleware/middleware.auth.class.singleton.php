@@ -16,7 +16,7 @@
         }
 
         function decode($token){
-            $databaseConfig = include (SITE_ROOT . "/backend/general/credentials/credentials.php");
+            $databaseConfig = include (SITE_ROOT . "/backend/credentials/credentials.php");
             $secret = $databaseConfig['secret'];
             $tokenjson=$this->$jwt->decode($token,$secret);
             $tokendecoded=json_decode($tokenjson,true);

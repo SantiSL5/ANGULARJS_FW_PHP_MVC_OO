@@ -1,6 +1,7 @@
 <?php 
 
 require ('autoload.php');
+$_POST = json_decode(file_get_contents('php://input'), true);
 
 class router {
     private $uriModule;
