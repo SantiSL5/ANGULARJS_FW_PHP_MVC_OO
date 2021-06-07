@@ -30,7 +30,6 @@ arcadeshop.controller('shop_controller', function($scope, services_shop, sliderd
 
     $scope.changepage = function () {
         $scope.actualpage=this.page;
-        console.log($scope.actualpage);
         if ($scope.actualpage > $scope.numpages) {
             $scope.actualpage=$scope.numpages;
         }else if ($scope.actualpage < 1) {
@@ -99,7 +98,6 @@ arcadeshop.controller('shop_controller', function($scope, services_shop, sliderd
     $scope.details = function () {
         $scope.optionshop="details";
         $scope.detailsproduct=this.videogame;
-        console.log($scope.detailsproduct);
     };
 
     $scope.cleandetails = function () {
@@ -107,7 +105,7 @@ arcadeshop.controller('shop_controller', function($scope, services_shop, sliderd
     };
 
     $scope.actualpage=1;
-    $scope.listall({"num_page":$scope.actualpage});
+    $scope.listall({"num_page":1,"minrange":$scope.slider.min,"maxrange":$scope.slider.max,"plataform":$scope.plataformsel,"age":$scope.agesel,"genero":$scope.generosel,"search":$scope.searchvalue});
 
     // $scope.currentPage = 2;
     // $scope.listall = function() {

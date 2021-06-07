@@ -3,7 +3,7 @@
         <div owl-carousel-item="" ng-repeat="item in carousel" class="item">
             <div id="{{item['category_name']}}div">
                 <img src="{{item['img']}}">
-                <button id="{{item['category_name']}}" class="category">{{item['category_name']}}</button>
+                <button id="{{item['category_name']}}" class="category" ng-click="category()">{{item['category_name']}}</button>
             </div>
         </div>
     </data-owl-carousel>
@@ -15,7 +15,7 @@
             <div id="{{item['plataforma']}}div" class="plataformdiv">
                 <img src="{{item['img']}}">
                 <h1>{{item['plataforma']}}</h1>
-                <button id="{{item['plataforma']}}" class="plataform">{{::item['plataforma']}}</button>
+                <button id="{{item['plataforma']}}" class="plataform" ng-click="plataform()">{{::item['plataforma']}}</button>
             </div>
         </div>
     </data-owl-carousel>

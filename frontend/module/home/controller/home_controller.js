@@ -1,6 +1,16 @@
-arcadeshop.controller('home_controller',function($scope, carousel, plataforms) {
+arcadeshop.controller('home_controller',function($scope, $location, carousel, plataforms) {
     $scope.carousel= carousel;
     $scope.plataforms = plataforms;
+    $scope.plataform = function () {
+        idplat=this['item']['plataforma'];
+        sessionStorage.setItem('plataform', idplat);
+        $location.path('shop').replace();
+    };
+    $scope.category = function () {
+        idgen=this['item']['category_name'];
+        sessionStorage.setItem('genero', idgen);
+        $location.path('shop').replace();
+    };
 }).directive("owlCarousel", function() {
     return {
         restrict: 'E',
