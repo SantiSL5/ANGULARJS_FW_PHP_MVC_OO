@@ -1,6 +1,31 @@
 <div>
     <div id="shop">
-        <div id="sidebar"></div>
+        <div id="sidebar">
+            <form id="filters_form">
+                <div id="filters">
+                    <rzslider
+                        rz-slider-floor="slider.floor"
+                        rz-slider-ceil="slider.ceil"
+                        rz-slider-model="slider.min"
+                        rz-slider-high="slider.max">
+                    </rzslider>
+                    <select id="plataforms" name="plataforms">
+                        <option value="">Select a plataform</option>
+                        <option ng-repeat="plataform in plataforms" value="{{plataform['plataforma']}}" ng-click="selectplataform()">{{plataform['plataforma']}}</option>
+                    </select>
+                    <select id="ages" name="ages">
+                        <option value="">Select a age</option>
+                        <option ng-repeat="age in ages" value="{{age}}" ng-click="selectage()">{{age}}</option>
+                    </select>
+                    <select id="genero" name="genero">
+                        <option value="">Select a genre</option>
+                        <option ng-repeat="genre in genres" value="{{genre['category_name']}}" ng-click="selectgenre()">{{genre['category_name']}}</option>
+                    </select>
+                </div>
+                <button ng-click="applyfilters()">Apply filters</button>
+                <button ng-click="cleanfilters()">Clean filters</button>
+            </form>
+        </div>
         <div id="container-products">
             <div class="card-shop" ng-repeat="videogame in allproducts">
                 <div class="general_img">

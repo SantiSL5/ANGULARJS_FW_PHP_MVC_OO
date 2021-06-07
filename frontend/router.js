@@ -1,5 +1,5 @@
 // , 'toastr', 'ui.bootstrap'
-var arcadeshop = angular.module('arcadeshop', ['ngRoute']);
+var arcadeshop = angular.module('arcadeshop', ['ngRoute','rzModule']);
 arcadeshop.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
         $routeProvider
@@ -22,11 +22,17 @@ arcadeshop.config(['$routeProvider', '$locationProvider',
                         }
                     }
                 }).when("/shop", {templateUrl: "frontend/module/shop/view/shop.html", controller: "shop_controller",
-                    // resolve: {
-                    //     allproducts: function (services) {
-                    //         return services.get('shop','listall');
-                    //     },
-                    // }
+                    resolve: {
+                        sliderdata: function (services) {
+                            return services.get('shop','rangeslider');
+                        },
+                        plataforms: function (services) {
+                            return services.get('shop','plataforms');
+                        },
+                        genres: function (services) {
+                            return services.get('shop','categories');
+                        }
+                    }
                 }).otherwise("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller"});
     }]);
 
