@@ -1,10 +1,6 @@
 <?php
 
 class controller_shop {
-    // function list() {
-    //     common::loadView('top_page_shop.php', VIEW_PATH_SHOP . 'shop.html');
-    // }
-    
     function listall() {
         $json = common::loadModel(MODEL_PATH_SHOP, "shop_model", "listall", $con);
         echo json_encode($json);

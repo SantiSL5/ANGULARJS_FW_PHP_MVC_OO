@@ -33,6 +33,30 @@ arcadeshop.config(['$routeProvider', '$locationProvider',
                             return services.get('shop','categories');
                         }
                     }
+                }).when("/register", {templateUrl: "frontend/module/shop/view/register.html", controller: "login_controller",
+                resolve: {
+                    // sliderdata: function (services) {
+                    //     return services.get('shop','rangeslider');
+                    // },
+                    // plataforms: function (services) {
+                    //     return services.get('shop','plataforms');
+                    // },
+                    // genres: function (services) {
+                    //     return services.get('shop','categories');
+                    // }
+                }
+                }).when("/login", {templateUrl: "frontend/module/shop/view/login.html", controller: "login_controller",
+                resolve: {
+                    // sliderdata: function (services) {
+                    //     return services.get('shop','rangeslider');
+                    // },
+                    // plataforms: function (services) {
+                    //     return services.get('shop','plataforms');
+                    // },
+                    // genres: function (services) {
+                    //     return services.get('shop','categories');
+                    // }
+                }
                 }).otherwise("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller"});
     }]);
 

@@ -24,7 +24,6 @@
             $exp=$tokendecoded['exp'];
             $userid=$tokendecoded['userid'];
             if ($exp>=time()) {
-                // echo ("true");
                 $result['invalid_token']=false;
                 $result['token']=$this->encode($userid);
                 $result['userid']=$userid;
@@ -61,11 +60,5 @@
             $result = $this->$jwt->encode($header, $payload, $secret);
             return $result;
         }
-        
-        // $hola=decode('eyJ0eXAiOiJKV1QiLCAiYWxnIjoiSFMyNTYifQ.ewogICAgICAgICAgICAiaWF0IjoxNjE4NDQzODQ2LCAKICAgICAgICAgICAgImV4cCI6MTYxODQ0NzQ0NiwKICAgICAgICAgICAgIm5hbWUiOiJTYW50aVNMNSIKICAgICAgICB9.9Xu15Ajx0PdJlw_vYugFgBVLi5bf5iVbwiXT4vLoAo8');
-        // $data=decode($result,$secret);
-        // var_dump($data);
-        // echo $data['name'];
-        // echo json_last_error();
     }
 ?>

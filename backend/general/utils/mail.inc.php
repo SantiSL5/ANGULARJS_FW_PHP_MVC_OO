@@ -32,26 +32,7 @@ class mail {
                 $totype="Client";
                 $html="<p>This email is valid for 1 hour</p><p>Click on the link to recover your password:<a href=$token_link>Recover</a></p>";
                 break;                
-        }// end_switch
-            // case 'admin';
-                
-            //     break;
-            //     //////
-            // case 'recover';
-            //     $email['fromEmail'] = 'support@getyourcar.com';
-            //     $email['inputMatter'] = 'Recover Password.';
-            //     $content .= "<h2>Thanks for contacting us.</h2>";
-            //     $content .= "<a href = '" . common::friendlyURL('?page=login&op=recover&param=' . $email['token']) ."'>Click here for recover your password.</a>";
-            //     break;
-            //     //////
-            // case 'validate';
-            //     $email['fromEmail'] = 'support@getyourcar.com';
-            //     $email['inputMatter'] = 'Email verification.';
-            //     $content .= '<h2>Email verification.</h2>';
-            //     $content .= '<a href = "' . common::friendlyURL('?page=login&op=verify&param=' . $email['token']) . '">Click here for verify your email.</a>';
-            //     break;
-                //////
-        //////
+        }
         $message = <<<DATA
         {
             "Messages":[
