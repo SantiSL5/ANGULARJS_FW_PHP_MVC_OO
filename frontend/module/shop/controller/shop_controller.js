@@ -1,4 +1,5 @@
 arcadeshop.controller('shop_controller', function($scope, services_shop, sliderdata, plataforms, genres) {
+    $scope.optionshop="all";
     $scope.ages=[3,7,12,16,18];
     $scope.plataforms=plataforms;
     $scope.genres=genres;
@@ -94,6 +95,16 @@ arcadeshop.controller('shop_controller', function($scope, services_shop, sliderd
         $scope.plataformsel=sessionStorage.getItem('plataform');
         sessionStorage.removeItem('plataform');
     }
+
+    $scope.details = function () {
+        $scope.optionshop="details";
+        $scope.detailsproduct=this.videogame;
+        console.log($scope.detailsproduct);
+    };
+
+    $scope.cleandetails = function () {
+        $scope.optionshop="all";
+    };
 
     $scope.actualpage=1;
     $scope.listall({"num_page":$scope.actualpage});

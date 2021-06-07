@@ -394,7 +394,6 @@ function showDetails() {
             $('<h2></h2>').text('Company: '+data[0].companyia).appendTo('#details .infodivdetails ul');
             $('<h2></h2>').text('Plataforma: '+data[0].plataforma).appendTo('#details .infodivdetails ul');
             $('<h2></h2>').text('Clasification: '+data[0].clasificacion).appendTo('#details .infodivdetails ul');
-            $('<h2></h2>').text('Clasification: '+data[0].precio).appendTo('#details .infodivdetails ul');
             $('<h2></h2>').attr({'id':"likes"+data[0].id,'class':'likes'}).text(data[0].likes).appendTo('#details .infodivdetails ul');
             if (token === null) {
                 $('<img></img>').attr({'src':'/module/shop/view/img/heart.png','id':data[0].id,'class':'not_like'}).text(data[0].views).appendTo('#details .infodivdetails ul');

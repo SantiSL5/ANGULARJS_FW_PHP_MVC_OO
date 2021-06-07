@@ -1,4 +1,4 @@
-<div>
+<div id="all" ng-show="optionshop == 'all'">
     <div id="shop">
         <div id="sidebar">
             <form id="filters_form">
@@ -46,7 +46,7 @@
                     <span class="views">{{videogame['views']}}</span>
                     <img class="eye" src="frontend/assets/img/eye.png">
                     <span class="price">{{videogame['precio']}}€</span>
-                    <button class="showdetails">Show details</button>
+                    <button class="showdetails" ng-click="details()">Show details</button>
                     <img class="cartbtn_shop" src="frontend/assets/img/cart.png">
                 </div>
             </div>
@@ -58,4 +58,24 @@
        <button ng-click="nextpage()">></button>
 
     </div>
+</div>
+<div id="details" ng-show="optionshop == 'details'">
+    <h1>{{detailsproduct['nombre']}}</h1>
+    <img src="{{detailsproduct['img']}}" alt="">
+    <div class="infodivdetails">
+        <ul>
+            <li><h2>State: {{detailsproduct['estado']}}</h2></li>
+            <li><h2>Company: {{detailsproduct['companyia']}}</h2></li>
+            <li><h2>Plataform: {{detailsproduct['plataforma']}}</h2></li>
+            <li><h2>Clasification: {{detailsproduct['clasificaion']}}</h2></li>
+            <li>
+                <span id="spanviews">
+                    <h2 class="views">{{detailsproduct['views']}}</h2>
+                    <img src="frontend/assets/img/eye.png" class="eye">
+                </span>
+            </li>
+            <li><h2>Price: {{detailsproduct['precio']}}€</h2></li>
+        </ul>
+    </div>
+    <button ng-click="cleandetails()">Volver a la tienda</button>
 </div>
