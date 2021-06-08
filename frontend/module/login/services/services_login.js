@@ -4,7 +4,7 @@ arcadeshop.factory('services_login', ['services' , function(services) {
 
     function menuInfo(data) {
         return new Promise((resolve,reject) => {
-            services.post('shop', 'menu_info', data)
+            services.post('login', 'menu_info', data)
             .then(function(response) {
                 resolve(response);
             });
@@ -13,7 +13,7 @@ arcadeshop.factory('services_login', ['services' , function(services) {
 
     function register(data) {
         return new Promise((resolve,reject) => {
-            services.post('shop', 'menu_info', data)
+            services.post('login', 'register', data)
             .then(function(response) {
                 resolve(response);
             });

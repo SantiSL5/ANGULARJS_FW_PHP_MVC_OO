@@ -21,9 +21,9 @@
 				</li>
 				<form class="d-flex">
 					<div class = "input">
-						<input id="input_search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" autocomplete=off ng-model="inputsearch" ng-keyup="autoComplete()">
+						<input id="input_search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" autocomplete=off ng-model="inputsearch" ng-keyup="autoComplete()" ng-value="inputsearch">
 						<div id="searchAutocomplete" ng-show="found == true">
-							<div ng-repeat="names in resultsearch">{{names['nombre']}}</div>
+							<div ng-repeat="names in resultsearch" ng-click="selectname()">{{names['nombre']}}</div>
 						</div>
 					</div>
 					<button id="button_search" name="button_search" class="btn btn-outline-success" type="button" ng-click="searchjump()">Search</button>

@@ -1,4 +1,4 @@
-arcadeshop.controller('login_controller', function($scope, services_login) {
+arcadeshop.controller('login_controller', function($scope, $cookies, services_login) {
 
     $scope.socialGhub = function (data) {
         var provider = new firebase.auth.GithubAuthProvider();
@@ -121,8 +121,20 @@ arcadeshop.controller('login_controller', function($scope, services_login) {
 
     $scope.register = function () {
         if ($scope.validateRegister()==true) {
+            data={'username':$('#user-register').val(),'email':$('#email-register').val(),'password':$('#password-register').val()};
+            services_login.socialLogin(data).then((response) => {
+                if (data['operation']=='email-in-use') {
+                    toastr.error("El email ya se esta usando en una cuenta");
+                }else{
+                    alert("Logueado Correctamente");
+                    localStorage.removeItem('token');
+                    localStorage.setItem('token', data['token']);
+                    window.location.href = '/home';
+                }
+                $scope.$apply();
+            });
             friendlyURL('?page=login&op=register').then(function(url) {
-                ajaxPromise(url, 'POST', 'JSON',{'username':$('#user-register').val(),'email':$('#email-register').val(),'password':$('#password-register').val()}).then(function(data) {
+                ajaxPromise(url, 'POST', 'JSON',).then(function(data) {
                     console.log(data[0]);
                     if (data[0] == true) {
                         alert("Registrado Correctamente, correo de verificación enviado");
@@ -328,13 +340,13 @@ arcadeshop.controller('login_controller', function($scope, services_login) {
         });
     }
 
-    function cookie_check() {
-        validate=Cookies.get('validate');
+    $scope.cookieCheck = function () {
+        validate=$cookies.get('validate');
         if (!(validate == null)) {
             toastr.info(validate);
-            Cookies.remove('validate');
+            $cookies.remove('validate');
         }
-    }
+    };
 
     function social_load() {
         url=window.location.href.split('/');
@@ -345,16 +357,4 @@ arcadeshop.controller('login_controller', function($scope, services_login) {
             social_ghub();
         }
     }
-
-    $(document).ready(function() {
-        cookie_check();
-        social_load();
-        login();
-        register();
-        recover_password();
-        request_recover_password();
-        recover_password_change();
-        registerbtn_change();
-        loginbtn_change();
-    });
 });

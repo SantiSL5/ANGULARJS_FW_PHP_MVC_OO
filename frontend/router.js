@@ -1,5 +1,5 @@
 // , 'toastr', 'ui.bootstrap'
-var arcadeshop = angular.module('arcadeshop', ['ngRoute','rzModule','toastr']);
+var arcadeshop = angular.module('arcadeshop', ['ngRoute','ngCookies','rzModule','toastr']);
 arcadeshop.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
         $routeProvider
@@ -34,33 +34,17 @@ arcadeshop.config(['$routeProvider', '$locationProvider',
                         }
                     }
                 }).when("/register", {templateUrl: "frontend/module/login/view/register.html", controller: "login_controller",
-                resolve: {
-                    // sliderdata: function (services) {
-                    //     return services.get('shop','rangeslider');
-                    // },
-                    // plataforms: function (services) {
-                    //     return services.get('shop','plataforms');
-                    // },
-                    // genres: function (services) {
-                    //     return services.get('shop','categories');
-                    // }
-                }
+                // resolve: {
+                    
+                // }
                 }).when("/login", {templateUrl: "frontend/module/login/view/login.html", controller: "login_controller",
-                resolve: {
-                    // sliderdata: function (services) {
-                    //     return services.get('shop','rangeslider');
-                    // },
-                    // plataforms: function (services) {
-                    //     return services.get('shop','plataforms');
-                    // },
-                    // genres: function (services) {
-                    //     return services.get('shop','categories');
-                    // }
-                }
+                // resolve: {
+
+                // }
                 }).otherwise("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller"});
     }]);
 
-arcadeshop.run(function($rootScope, $location, $route, services,services_menu, toastr) {
+arcadeshop.run(function($rootScope, $location, $route, services, services_menu, toastr) {
 
     $rootScope.changelang = function(lang) {
         lang = lang || localStorage.getItem('app-lang') || 'en';
@@ -93,13 +77,23 @@ arcadeshop.run(function($rootScope, $location, $route, services,services_menu, t
 
     }
 
+    $rootScope.selectname = function() {
+        $rootScope.found=false;
+        $rootScope.textsearch=this.names.nombre;
+        $rootScope.searchjump();
+    }
+
     $rootScope.searchjump = function() {
-        $rootScope.searchvalue=sessionStorage.setItem('search', $rootScope.textsearch);
+        sessionStorage.setItem('search', $rootScope.textsearch);
         $location.path('/shop');
         $route.reload();
     }
 
-    $rootScope.$on("$routeChangeSuccess", function(event, current, previous){
+    $rootScope.$on("$viewContentLoaded", function(event, current, previous){
+        $rootScope.changelang();
+    });
+
+    $rootScope.$on("$changeRouteSuccess", function(event, current, previous){
         $rootScope.changelang();
     });
 
@@ -134,6 +128,6 @@ arcadeshop.run(function($rootScope, $location, $route, services,services_menu, t
         localStorage.removeItem('token');
         $rootScope.logued=false;
     }
-
+    
     $rootScope.check_logued();
 });
