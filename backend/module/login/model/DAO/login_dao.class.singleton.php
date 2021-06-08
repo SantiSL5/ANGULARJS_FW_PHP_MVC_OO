@@ -160,7 +160,7 @@
         }
 
         public function validate_account() {
-            $token=$_GET['arg'];
+            $token=$_POST['token'];
             if ($token) {
                 $v_token=$this->$middleware->decode($token);
                 if ($v_token['invalid_token'] == true) {
@@ -176,7 +176,7 @@
                         }
                     }
                     connect::close($conexion);
-                    setcookie("validate", "Token_invalido", time() + 60, '/');
+                    $response["text"]="Token_invalido";
                 }else {
                     $id_user=$v_token['userid'];
                     $sql = "SELECT * FROM users WHERE id='$id_user'";
@@ -187,13 +187,14 @@
                         $row = $res->fetch_assoc();
                         if ($row['validate']=='false') {
                             $res2 = mysqli_query($conexion, $sql2);
-                            setcookie("validate", "Cuenta_validada", time() + 60, '/');
+                            $response["text"]="Cuenta_validada";
                         }else if ($row['validate']=='true'){
-                            setcookie("validate", "Esta_cuenta_ya_ha_sido_validada", time() + 60, '/');
+                            $response["text"]="Esta_cuenta_ya_ha_sido_validada";
                         }
                     }
                     connect::close($conexion);
                 }
+                return $response;
             }
         }
 

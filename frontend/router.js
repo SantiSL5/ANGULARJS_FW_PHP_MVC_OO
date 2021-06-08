@@ -41,10 +41,16 @@ arcadeshop.config(['$routeProvider', '$locationProvider',
                 // resolve: {
 
                 // }
-                }).when("/login", {templateUrl: "frontend/module/login/view/login.html", controller: "login_controller",
-                // resolve: {
-
-                // }
+                }).when("/validate_account/:token", {
+                    resolve: {
+                        validateUser: function ($route, $location, services, toastr) {
+                            services.post('login', 'validate_account', {"token":$route.current.params.token})
+                            .then(function (response) {
+                                toastr.info(response["text"]);
+                                $location.path('/prpito');
+                            });
+                        },
+                    }
                 }).otherwise("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller"});
     }]);
 

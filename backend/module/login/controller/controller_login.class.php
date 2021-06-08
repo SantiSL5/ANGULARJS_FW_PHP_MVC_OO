@@ -22,11 +22,8 @@ class controller_login {
     }
 
     function validate_account() {
-        ob_start();
         $json = common::loadModel(MODEL_PATH_LOGIN, "login_model", "validate_account", $con);
         echo json_encode($json);
-        ob_end_clean();
-        header('Location: '.SITE_PATH . 'login/');
     }
 
     function request_recover_password() {
