@@ -1,4 +1,4 @@
-arcadeshop.controller('login_controller', function($scope, $cookies, toastr, $location,services_login) {
+arcadeshop.controller('login_controller', function($scope, $rootScope, $cookies, toastr, $location,services_login) {
 
     var config = {
         apiKey: API_KEY_SS,
@@ -24,6 +24,7 @@ arcadeshop.controller('login_controller', function($scope, $cookies, toastr, $lo
                         alert("Logueado Correctamente");
                         localStorage.removeItem('token');
                         localStorage.setItem('token', response['token']);
+                        $rootScope.logued=true;
                         $location.path('/home');
                     }
                     $scope.$apply();
@@ -122,8 +123,6 @@ arcadeshop.controller('login_controller', function($scope, $cookies, toastr, $lo
         if ($scope.validateRegister()==true) {
             data={'username':$scope.userRegisterval,'email':$scope.emailRegisterval,'password':$scope.passwordRegisterval};
             services_login.register(data).then((response) => {
-                $scope.resultcheck=response;
-                console.log($scope.resultcheck);
                 if (response['0'] == true) {
                     toastr.info("Registrado Correctamente, correo de verificación enviado");
                     $location.path('/login');
@@ -146,36 +145,33 @@ arcadeshop.controller('login_controller', function($scope, $cookies, toastr, $lo
         }
     };
 
-    // function register() {
-    //     $('#register-btn').on('click', function() {
-    //         if (validate_register()==true) {
-    //             friendlyURL('?page=login&op=register').then(function(url) {
-    //                 ajaxPromise(url, 'POST', 'JSON',{'username':$('#user-register').val(),'email':$('#email-register').val(),'password':$('#password-register').val()}).then(function(data) {
-    //                     console.log(data[0]);
-    //                     if (data[0] == true) {
-    //                         alert("Registrado Correctamente, correo de verificación enviado");
-    //                         window.location.href = '/login'
-    //                     }else if (data[0] == false) {
-    //                         if (data['username'] == false) {
-    //                             $('#error-user-register').text('El usuario introducido ya existe');
-    //                         }
-    //                         if (data['email'] == false) {
-    //                             $('#error-email-register').text('El email introducido ya existe');
-    //                         }
-    //                         if (data['username'] == true) {
-    //                             $('#error-user-register').text('');
-    //                         }
-    //                         if (data['email'] == true) {
-    //                             $('#error-email-register').text('');
-    //                         }
-    //                     }
-    //                 }).catch(function() {
-    //                     // window.location.href = '/503';
-    //                 }); 
-    //             }); 
-    //         }
-    //     });
-    // }
+    $scope.login = function () {
+        data={'username_login':$scope.userLoginval,'password_login':$scope.passwordLoginval};
+        services_login.loginLocal(data).then((response) => {
+            if (response['validate']==false) {
+                toastr.info("No ha verificado su cuenta, por favor revise su correo");
+            }else {
+                if (response['username_created'] == true && response['correct_password'] == true) {
+                    toastr.info("Logueado Correctamente");
+                    localStorage.removeItem('token');
+                    localStorage.setItem('token', response['token']);
+                    $rootScope.checkToken();
+                    $location.path('/home');
+                }else {
+                    if (response['username_created'] == false) {
+                        $scope.userLoginError="El usuario introducido no se encuentra registrado";
+                    }else{
+                        if (response['correct_password'] == false) {
+                            $scope.passwordLoginError="La contraseña introducida no es correcta";
+                        }else{
+                            $scope.passwordLoginError="";
+                        }
+                        $scope.userLoginError="";
+                    }
+                }
+            }
+        });
+    };
 
     function login() {
         $('#login-btn').on('click', function() {

@@ -1,5 +1,5 @@
 arcadeshop.factory('services_login', ['services' , function(services) {
-    let service = {menuInfo: menuInfo,register:register,socialLogin:socialLogin};
+    let service = {menuInfo: menuInfo,register:register,loginLocal:loginLocal,socialLogin:socialLogin};
     return service;
 
     function menuInfo(data) {
@@ -14,6 +14,15 @@ arcadeshop.factory('services_login', ['services' , function(services) {
     function register(data) {
         return new Promise((resolve,reject) => {
             services.post('login', 'register', data)
+            .then(function(response) {
+                resolve(response);
+            });
+        });
+    };
+
+    function loginLocal(data) {
+        return new Promise((resolve,reject) => {
+            services.post('login', 'login_local', data)
             .then(function(response) {
                 resolve(response);
             });

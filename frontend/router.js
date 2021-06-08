@@ -107,7 +107,7 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
         }else{
             datamenu={"token":token};
             services_login.menuInfo(datamenu).then((response) => {
-                if (response['invalid_token']){
+                if (response['invalid_token'] == true){
                     $rootScope.logout();
                     $rootScope.logued=false;
                 }else{
@@ -118,6 +118,7 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
                 }
             });
         }
+        $rootScope.$apply();
     }
 
     $rootScope.registerbtn = function() {

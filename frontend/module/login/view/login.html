@@ -6,11 +6,11 @@
         </div>
         <div id="content-login">
             <form id="login-form">
-                <input id="user-login" type="text" placeholder="Username">
-                <p id="error-user-login" class="error"></p>
-                <input id="password-login" type="password" placeholder="Password">
-                <p id="error-password-login" class="error"></p>
-                <button name="login-btn" type="button" id="login-btn">Login</button>
+                <input id="user-login" type="text" placeholder="Username" ng-model="userLoginval">
+                <p id="error-user-login" class="error">{{userLoginError}}</p>
+                <input id="password-login" type="password" placeholder="Password" ng-model="passwordLoginval">
+                <p id="error-password-login" class="error">{{passwordLoginError}}</p>
+                <button name="login-btn" type="button" id="login-btn" ng-click="login()">Login</button>
                 <button name="recover-password" type="button" id="recover-password">Recover password</button>
                 <div id="social">
                     <button name="google-btn" type="button" id="google-btn" ng-click="socialGoogle()">Log-in Google</button>
