@@ -32,9 +32,8 @@
                 $email_data['type']='validate';
                 $email_data['email']=$_POST['email'];
                 $token=$this->$middleware->encode($id_user);
-                $email_data['token']="http://localhost/login/validate_account/$token";
+                $email_data['token']="http://localhost/#/validate_account/$token";
                 $result['result']=mail::sendEmail($email_data);
-                $check['result']=$result['result'];
                 $check[0]=true;
             }else{
                 $check[0]=false;

@@ -31,11 +31,9 @@
 			</ul>
 			<div id="account-navbar">
 				<ul class="navbar-nav justify-content-end" ng-show="logued == true">
-					<li class="nav-item">
-						<a id="username_menu" class="nav-link"></a>
-						<img src="" id="avatar_menu">
-						<button id="logoutbtn-nav" class="btn btn-outline-success me-2">Logout</button>
-					</li>
+					<a id="username_menu" class="nav-link">{{usernameMenu}}</a>
+					<img src="{{avatarMenu}}" id="avatar_menu">
+					<button id="logoutbtn-nav" class="btn btn-outline-success me-2" ng-click="logout()">Logout</button>
 				</ul>
 				<ul class="navbar-nav justify-content-end" ng-show="logued == false">
 					<li class="nav-item">

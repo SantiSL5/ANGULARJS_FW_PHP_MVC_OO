@@ -6,14 +6,14 @@
         </div>
         <div id="content-register">
             <form id="register-form">
-                <input id="user-register" type="text" placeholder="Username" ng-model="userRegister" ng-change="userRegister()">
+                <input id="user-register" type="text" placeholder="Username" ng-model="userRegisterval" ng-keydown="userRegister()" ng-keyup="userRegister()">
                 <p id="error-user-register" class="error">{{userRegisterError}}</p>
-                <input id="email-register" type="email" placeholder="Email" ng-model="emailRegister" ng-change="emailRegister()">
+                <input id="email-register" type="email" placeholder="Email" ng-model="emailRegisterval" ng-keydown="emailRegister()" ng-keyup="emailRegister()">
                 <p id="error-email-register" class="error">{{emailRegisterError}}</p>
-                <input id="password-register" type="password" placeholder="Password" ng-model="passwordRegister" ng-change="passwordRegister()">
-                <p id="error-password-register" class="error">{{passwordRegisterError}</p>
-                <input id="confpassword-register" type="password" placeholder="Confirm Password" ng-model="confPasswordRegister" ng-change="confPasswordRegister()">
-                <p> id="error-confpassword-register" class="error">{{confPasswordRegisterError}</p>
+                <input id="password-register" type="password" placeholder="Password" ng-model="passwordRegisterval" ng-change="passwordRegister()" ng-keydown="passwordRegister()" ng-keyup="passwordRegister()">
+                <p id="error-password-register" class="error">{{passwordRegisterError}}</p>
+                <input id="confpassword-register" type="password" placeholder="Confirm Password" ng-model="confPasswordRegisterval" ng-keydown="confPasswordRegister()" ng-keyup="confPasswordRegister()">
+                <p id="error-confpassword-register" class="error">{{confPasswordRegisterError}}</p>
                 <button name="register-btn" type="button" id="register-btn" ng-click="register()">Register</button>
             </form>
         </div>

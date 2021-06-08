@@ -41,10 +41,14 @@ arcadeshop.config(['$routeProvider', '$locationProvider',
                 // resolve: {
 
                 // }
+                }).when("/login", {templateUrl: "frontend/module/login/view/login.html", controller: "login_controller",
+                // resolve: {
+
+                // }
                 }).otherwise("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller"});
     }]);
 
-arcadeshop.run(function($rootScope, $location, $route, services, services_menu, toastr) {
+arcadeshop.run(function($rootScope, $location, $route, services, services_menu, services_login, toastr) {
 
     $rootScope.changelang = function(lang) {
         lang = lang || localStorage.getItem('app-lang') || 'en';
@@ -72,7 +76,6 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
                 $rootScope.found=true;
                 $rootScope.resultsearch=response;
             }
-            $rootScope.$apply();
         });
 
     }
@@ -97,20 +100,23 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
         $rootScope.changelang();
     });
 
-    $rootScope.check_logued = function() {
+    $rootScope.checkToken = function() {
         token = localStorage.getItem('token');
         if (token == null) {
-            $rootScope.logued=false;
+            $rootScope.logout();
         }else{
-            if (check_validtoken == true) {
-                $rootScope.logout();
-                toastr.info("Sesión no válida, vuelva a iniciar sesión");
-
-                $rootScope.logued=false;
-            }else{
-                localStorage.setItem('token', token);
-                $rootScope.logued=true;
-            }
+            datamenu={"token":token};
+            services_login.menuInfo(datamenu).then((response) => {
+                if (response['invalid_token']){
+                    $rootScope.logout();
+                    $rootScope.logued=false;
+                }else{
+                    localStorage.setItem("token", response['token']);
+                    $rootScope.usernameMenu=response['username'];
+                    $rootScope.avatarMenu=response['avatar'];
+                    $rootScope.logued=true;
+                }
+            });
         }
     }
 
@@ -129,5 +135,5 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
         $rootScope.logued=false;
     }
     
-    $rootScope.check_logued();
+    $rootScope.checkToken();
 });

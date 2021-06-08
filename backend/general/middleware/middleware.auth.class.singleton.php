@@ -16,7 +16,7 @@
         }
 
         function decode($token){
-            $databaseConfig = include (SITE_ROOT . "/backend/credentials/credentials.php");
+            $databaseConfig = include (SITE_ROOT . "credentials/credentials.php");
             $secret = $databaseConfig['secret'];
             $tokenjson=$this->$jwt->decode($token,$secret);
             $tokendecoded=json_decode($tokenjson,true);
@@ -34,7 +34,7 @@
         }
     
         function encode($userid){
-            $databaseConfig = include (SITE_ROOT . "/general/credentials/credentials.php");
+            $databaseConfig = include (SITE_ROOT . "credentials/credentials.php");
             $secret = $databaseConfig['secret'];
             ////////////////////////////////////////////////
             //https://github.com/miguelangel-nubla/JWT-PHP//

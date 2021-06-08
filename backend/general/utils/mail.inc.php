@@ -3,7 +3,7 @@
 //////
 class mail {
     function sendEmail($email) {
-        $ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/model/api.ini');
+        $ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/backend/model/api.ini');
         //////
         switch ($email['type']) {
             case 'contact':

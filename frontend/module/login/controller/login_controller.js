@@ -1,6 +1,16 @@
-arcadeshop.controller('login_controller', function($scope, $cookies, services_login) {
+arcadeshop.controller('login_controller', function($scope, $cookies, toastr, $location,services_login) {
+
+    var config = {
+        apiKey: API_KEY_SS,
+        authDomain: AUTH_DOMAIN,
+        databaseURL: DATABASE_URL,
+        projectId: PROJECTID,
+        storageBucket: "",
+        messagingSenderId: MESSAGING_SENDER_ID
+    };
 
     $scope.socialGhub = function (data) {
+        firebase.initializeApp(config);
         var provider = new firebase.auth.GithubAuthProvider();
         provider.addScope('email');
         var authService = firebase.auth();
@@ -13,8 +23,8 @@ arcadeshop.controller('login_controller', function($scope, $cookies, services_lo
                     }else{
                         alert("Logueado Correctamente");
                         localStorage.removeItem('token');
-                        localStorage.setItem('token', data['token']);
-                        window.location.href = '/home';
+                        localStorage.setItem('token', response['token']);
+                        $location.path('/home');
                     }
                     $scope.$apply();
                 });
@@ -22,10 +32,10 @@ arcadeshop.controller('login_controller', function($scope, $cookies, services_lo
             .catch(function(error) {
                 toastr.error("Autentificación fallida")
             });
-        $scope.$apply();
     };
 
     $scope.socialGoogle = function (data) {
+        firebase.initializeApp(config);
         var provider = new firebase.auth.GoogleAuthProvider();
         provider.addScope('email');
         var authService = firebase.auth();
@@ -39,8 +49,8 @@ arcadeshop.controller('login_controller', function($scope, $cookies, services_lo
                     }else{
                         alert("Logueado Correctamente");
                         localStorage.removeItem('token');
-                        localStorage.setItem('token', data['token']);
-                        window.location.href = '/home';
+                        localStorage.setItem('token', response['token']);
+                        $location.path('/home');
                     }
                     $scope.$apply();
                 });
@@ -48,69 +58,58 @@ arcadeshop.controller('login_controller', function($scope, $cookies, services_lo
             .catch(function(error) {
                 toastr.error("Autentificación fallida")
             });
-        $scope.$apply();
     };
 
     $scope.userRegister = function () {
-        if (this.userRegister.length ===0) {
+        if (this.userRegisterval.length ===0) {
             $scope.userRegisterError="Introduce un usuario";
             $scope.validateUserRegister=false;
-        }else if (this.userRegister.length <= 3) {
-            $scope.userRegisterError="El usuario tiene que tener 3 o más carácteres";
+        }else if (this.userRegisterval.length <= 3) {
+            $scope.userRegisterError="El usuario tiene que tener mas de 3 carácteres";
             $scope.validateUserRegister=false;
         }else {
             $scope.validateUserRegister=true;
-            $scope.userRegisterval=this.userRegister;
             $scope.userRegisterError="";
         }
-        $scope.$apply();
     };
 
     $scope.emailRegister = function () {
         var emailre = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-        if (this.emailRegister.length ===0) {
-            $scope.emailRegisterError="Introduce un email";
-            $scope.validateEmailRegister=false;
-        }else if (!emailre.this.emailRegister) {
+        if (!emailre.test(this.emailRegisterval)) {
             $scope.emailRegisterError="Introduce un email válido";
             $scope.validateEmailRegister=false;
         }else {
             $scope.validateEmailRegister=true;
-            $scope.emailRegisterval=this.emailRegister;
             $scope.emailRegisterError="";
         }
-        $scope.$apply();
     };
 
     $scope.passwordRegister = function () {
         var passwordre =/(?=.*\d.*)(?=.*[A-Z].*)(?=.*[a-z].*).{8,}/;
-        if (this.passwordRegister.length ===0) {
-            $scope.passwordRegisterError="Introduce una contraseña";
-            $scope.validatePasswordRegister=false;
-        }else if (!passwordre.this.passwordRegister) {
+        if (!passwordre.test(this.passwordRegisterval)) {
             $scope.passwordRegisterError="La contraseña debe tener por lo menos 8 cáracteres,1 letra minúscula, 1 letra mayúscula y 1 número";
             $scope.validatePasswordRegister=false;
         }else {
             $scope.validatePasswordRegister=true;
-            $scope.passwordRegisterval=this.passwordRegister;
             $scope.passwordRegisterError="";
         }
-        $scope.$apply();
     };
 
     $scope.confPasswordRegister = function () {
-        if (this.confPasswordRegister === $scope.passwordRegisterval) {
+        if (this.confPasswordRegisterval != $scope.passwordRegisterval) {
             $scope.confPasswordRegisterError="Las contraseñas deben ser iguales";
             $scope.validateConfPasswordRegister=false;
         }else {
             $scope.validateConfPasswordRegister=true;
-            $scope.confPasswordRegisterval=this.confPasswordRegister;
             $scope.confPasswordRegisterError="";
         }
-        $scope.$apply();
     };
 
     $scope.validateRegister = function () {
+        $scope.userRegister();
+        $scope.emailRegister();
+        $scope.passwordRegister();
+        $scope.confPasswordRegister();
         if ($scope.validateUserRegister==true && $scope.validateEmailRegister==true && $scope.validatePasswordRegister==true && $scope.validateConfPasswordRegister==true) {
             validate=true;
         }else {
@@ -121,75 +120,62 @@ arcadeshop.controller('login_controller', function($scope, $cookies, services_lo
 
     $scope.register = function () {
         if ($scope.validateRegister()==true) {
-            data={'username':$('#user-register').val(),'email':$('#email-register').val(),'password':$('#password-register').val()};
-            services_login.socialLogin(data).then((response) => {
-                if (data['operation']=='email-in-use') {
-                    toastr.error("El email ya se esta usando en una cuenta");
-                }else{
-                    alert("Logueado Correctamente");
-                    localStorage.removeItem('token');
-                    localStorage.setItem('token', data['token']);
-                    window.location.href = '/home';
+            data={'username':$scope.userRegisterval,'email':$scope.emailRegisterval,'password':$scope.passwordRegisterval};
+            services_login.register(data).then((response) => {
+                $scope.resultcheck=response;
+                console.log($scope.resultcheck);
+                if (response['0'] == true) {
+                    toastr.info("Registrado Correctamente, correo de verificación enviado");
+                    $location.path('/login');
+                }else if (response['0'] == false) {
+                    if (response['username'] == false) {
+                        $scope.userRegisterError="El usuario introducido ya existe";
+                    }
+                    if (response['email'] == false) {
+                        $scope.emailRegisterError="El email introducido ya existe";
+                    }
+                    if (response['username'] == true) {
+                        $scope.userRegisterError="";
+                    }
+                    if (response['email'] == true) {
+                        $scope.emailRegisterError="";
+                    }
                 }
                 $scope.$apply();
             });
-            friendlyURL('?page=login&op=register').then(function(url) {
-                ajaxPromise(url, 'POST', 'JSON',).then(function(data) {
-                    console.log(data[0]);
-                    if (data[0] == true) {
-                        alert("Registrado Correctamente, correo de verificación enviado");
-                        window.location.href = '/login'
-                    }else if (data[0] == false) {
-                        if (data['username'] == false) {
-                            $('#error-user-register').text('El usuario introducido ya existe');
-                        }
-                        if (data['email'] == false) {
-                            $('#error-email-register').text('El email introducido ya existe');
-                        }
-                        if (data['username'] == true) {
-                            $('#error-user-register').text('');
-                        }
-                        if (data['email'] == true) {
-                            $('#error-email-register').text('');
-                        }
-                    }
-                }).catch(function() {
-                    // window.location.href = '/503';
-                }); 
-            }); 
         }
     };
 
-    function register() {
-        $('#register-btn').on('click', function() {
-            if (validate_register()==true) {
-                friendlyURL('?page=login&op=register').then(function(url) {
-                    ajaxPromise(url, 'POST', 'JSON',{'username':$('#user-register').val(),'email':$('#email-register').val(),'password':$('#password-register').val()}).then(function(data) {
-                        console.log(data[0]);
-                        if (data[0] == true) {
-                            alert("Registrado Correctamente, correo de verificación enviado");
-                            window.location.href = '/login'
-                        }else if (data[0] == false) {
-                            if (data['username'] == false) {
-                                $('#error-user-register').text('El usuario introducido ya existe');
-                            }
-                            if (data['email'] == false) {
-                                $('#error-email-register').text('El email introducido ya existe');
-                            }
-                            if (data['username'] == true) {
-                                $('#error-user-register').text('');
-                            }
-                            if (data['email'] == true) {
-                                $('#error-email-register').text('');
-                            }
-                        }
-                    }).catch(function() {
-                        // window.location.href = '/503';
-                    }); 
-                }); 
-            }
-        });
-    }
+    // function register() {
+    //     $('#register-btn').on('click', function() {
+    //         if (validate_register()==true) {
+    //             friendlyURL('?page=login&op=register').then(function(url) {
+    //                 ajaxPromise(url, 'POST', 'JSON',{'username':$('#user-register').val(),'email':$('#email-register').val(),'password':$('#password-register').val()}).then(function(data) {
+    //                     console.log(data[0]);
+    //                     if (data[0] == true) {
+    //                         alert("Registrado Correctamente, correo de verificación enviado");
+    //                         window.location.href = '/login'
+    //                     }else if (data[0] == false) {
+    //                         if (data['username'] == false) {
+    //                             $('#error-user-register').text('El usuario introducido ya existe');
+    //                         }
+    //                         if (data['email'] == false) {
+    //                             $('#error-email-register').text('El email introducido ya existe');
+    //                         }
+    //                         if (data['username'] == true) {
+    //                             $('#error-user-register').text('');
+    //                         }
+    //                         if (data['email'] == true) {
+    //                             $('#error-email-register').text('');
+    //                         }
+    //                     }
+    //                 }).catch(function() {
+    //                     // window.location.href = '/503';
+    //                 }); 
+    //             }); 
+    //         }
+    //     });
+    // }
 
     function login() {
         $('#login-btn').on('click', function() {
