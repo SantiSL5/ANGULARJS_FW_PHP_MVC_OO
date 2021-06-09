@@ -1,4 +1,4 @@
-arcadeshop.controller('shop_controller', function($scope, services_shop, sliderdata, plataforms, genres) {
+arcadeshop.controller('shop_controller', function($scope, $rootScope, services_shop, sliderdata, plataforms, genres) {
     $scope.optionshop="all";
     $scope.ages=[3,7,12,16,18];
     $scope.plataforms=plataforms;
@@ -11,6 +11,8 @@ arcadeshop.controller('shop_controller', function($scope, services_shop, sliderd
     };
 
     $scope.listall = function (data) {
+        token=localStorage.getItem('token');
+        data.token=token;
         services_shop.listall(data).then((response) => {
             products_page=4;
             max_pages=3;

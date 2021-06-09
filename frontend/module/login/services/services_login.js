@@ -1,5 +1,5 @@
 arcadeshop.factory('services_login', ['services' , function(services) {
-    let service = {menuInfo: menuInfo,register:register,loginLocal:loginLocal,socialLogin:socialLogin};
+    let service = {menuInfo: menuInfo,register:register,loginLocal:loginLocal,socialLogin:socialLogin,requestRecoverPassword:requestRecoverPassword,recoverPassword:recoverPassword};
     return service;
 
     function menuInfo(data) {
@@ -32,6 +32,25 @@ arcadeshop.factory('services_login', ['services' , function(services) {
     function socialLogin(data) {
         return new Promise((resolve,reject) => {
             services.post('login', 'social_login', data)
+            .then(function(response) {
+                resolve(response);
+            });
+        });
+    };
+
+
+    function requestRecoverPassword(data) {
+        return new Promise((resolve,reject) => {
+            services.post('login', 'request_recover_password', data)
+            .then(function(response) {
+                resolve(response);
+            });
+        });
+    };
+
+    function recoverPassword(data) {
+        return new Promise((resolve,reject) => {
+            services.post('login', 'recover_password', data)
             .then(function(response) {
                 resolve(response);
             });

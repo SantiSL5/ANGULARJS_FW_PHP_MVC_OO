@@ -1,5 +1,5 @@
 // , 'toastr', 'ui.bootstrap'
-var arcadeshop = angular.module('arcadeshop', ['ngRoute','ngCookies','rzModule','toastr']);
+var arcadeshop = angular.module('arcadeshop', ['ngRoute','rzModule','toastr']);
 arcadeshop.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
         $routeProvider
@@ -47,10 +47,18 @@ arcadeshop.config(['$routeProvider', '$locationProvider',
                             services.post('login', 'validate_account', {"token":$route.current.params.token})
                             .then(function (response) {
                                 toastr.info(response["text"]);
-                                $location.path('/prpito');
+                                $location.path('/login');
                             });
                         },
                     }
+                }).when("/requestRecoverPassword", {templateUrl: "frontend/module/login/view/request_recover_password.html", controller: "login_controller",
+                // resolve: {
+
+                // }
+                }).when("/recoverPassword/:token", {templateUrl: "frontend/module/login/view/recover_password.html", controller: "login_controller",
+                // resolve: {
+
+                // }
                 }).otherwise("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller"});
     }]);
 
@@ -128,12 +136,10 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
     }
 
     $rootScope.registerbtn = function() {
-        $rootScope.searchvalue=sessionStorage.setItem('search', $rootScope.textsearch);
         $location.path('/register');
     }
 
     $rootScope.loginbtn = function() {
-        $rootScope.searchvalue=sessionStorage.setItem('search', $rootScope.textsearch);
         $location.path('/login');
     }
 

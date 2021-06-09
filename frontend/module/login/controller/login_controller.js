@@ -1,4 +1,4 @@
-arcadeshop.controller('login_controller', function($scope, $rootScope, $cookies, toastr, $location,services_login) {
+arcadeshop.controller('login_controller', function($scope, $rootScope, $route, toastr, $location,services_login) {
 
     var config = {
         apiKey: API_KEY_SS,
@@ -21,7 +21,7 @@ arcadeshop.controller('login_controller', function($scope, $rootScope, $cookies,
                     if (data['operation']=='email-in-use') {
                         toastr.error("El email ya se esta usando en una cuenta");
                     }else{
-                        alert("Logueado Correctamente");
+                        toastr.info("Logueado Correctamente");
                         localStorage.removeItem('token');
                         localStorage.setItem('token', response['token']);
                         $rootScope.logued=true;
@@ -48,7 +48,7 @@ arcadeshop.controller('login_controller', function($scope, $rootScope, $cookies,
                     if (data['operation']=='email-in-use') {
                         toastr.error("El email ya se esta usando en una cuenta");
                     }else{
-                        alert("Logueado Correctamente");
+                        toastr.info("Logueado Correctamente");
                         localStorage.removeItem('token');
                         localStorage.setItem('token', response['token']);
                         $location.path('/home');
@@ -168,175 +168,98 @@ arcadeshop.controller('login_controller', function($scope, $rootScope, $cookies,
                         }
                         $scope.userLoginError="";
                     }
+                    $scope.$apply();
                 }
             }
         });
     };
 
-    function login() {
-        $('#login-btn').on('click', function() {
-            friendlyURL('?page=login&op=login_local').then(function(url) {
-                ajaxPromise(url, 'POST', 'JSON',{'username_login':$('#user-login').val(),'password_login':$('#password-login').val()}).then(function(data) {
-                    if (data['validate']==false) {
-                        toastr.info("No ha verificado su cuenta, por favor revise su correo");
-                    }else {
-                        if (data['username_created'] == true && data['correct_password'] == true) {
-                            alert("Logueado Correctamente");
-                            localStorage.removeItem('token');
-                            localStorage.setItem('token', data['token']);
-                            window.location.href = '/home';
-                        }else {
-                            if (data['username_created'] == false) {
-                                $('#error-user-login').text('El usuario introducido no se encuentra registrado');
-                            }else{
-                                if (data['correct_password'] == false) {
-                                    $('#error-password-login').text('La contraseña introducida no es correcta');
-                                }else{
-                                    $('#error-password-login').text('');
-                                }
-                                $('#error-user-login').text('');
-                            }
-                        }
-                    }
-                }).catch(function() {
-                    // window.location.href = 'index.php?page=503';
-                });
-            }); 
-        });
-    }
+    $scope.recoverPasswordChange = function () {
+        $location.path('/requestRecoverPassword');
+    };
 
-    function registerbtn_change() {
-        $('#register-option').on('click', function() {
-            friendlyURL('?page=login&op=listregister').then(function(url) {
-                window.location.href = url;
-            }); 
-        });
-    }
-
-    function loginbtn_change() {
-        $('#login-option').on('click', function() {
-            friendlyURL('?page=login&op=list').then(function(url) {
-                window.location.href = url;
-            }); 
-        });
-    }
-
-    function recover_password_change() {
-        $('#recover-password').on('click', function() {
-            friendlyURL('?page=login&op=listrequestrecover').then(function(url) {
-                window.location.href = url;
-            }); 
-        });
-    }
-
-    function validate_recover_password_mail() {
+    $scope.validateRecoverPassEmail = function () {
         var emailre = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-        validate=true;
-
-        if ($('#email-recover').val().length === 0) {
-            $('#error-email-recover').text('Introduce un email');
-            validate=false;
-        }else if (!emailre.test($('#email-recover').val())) {
-            $('#error-email-recover').text('Introduce un email válido');
-            validate=false;
+        if (!emailre.test(this.emailRecoverPassval)) {
+            $scope.emailRecoverPassError="Introduce un email válido";
+            $scope.emailrecoverPass=false;
         }else {
-            $('#error-user-recover').text('');
+            $scope.emailrecoverPass=true;
+            $scope.emailRecoverPassError="";
         }
+    };
 
-        return validate;
-    }
-
-    function validate_recover_password() {
-        var passwordre =/(?=.*\d.*)(?=.*[A-Z].*)(?=.*[a-z].*).{8,}/;
-        validate=true;
-
-        if ($('#password-recover').val().length === 0) {
-            $('#error-password-recover').text('Introduce una contraseña');
-            validate=false;
-        }else if (!passwordre.test($('#password-recover').val())) {
-            $('#error-password-recover').text('La contraseña debe tener por lo menos 8 cáracteres,1 letra minúscula, 1 letra mayúscula y 1 número');
-            validate=false;
-        }else{
-            $('#error-password-recover').text('');
-        }
-
-        if (!($('#password-recover').val()==$('#confpassword-recover').val())) {
-            $('#error-confpassword-recover').text('Las contraseñas deben ser iguales'); 
-            validate=false;
-        } else {
-            $('#error-confpassword-recover').text(''); 
-        }
-
-        return validate;
-    }
-
-    function request_recover_password() {
-            $('#recover-password-mail').on('click', function() {
-                if (validate_recover_password_mail()==true) {
-                    friendlyURL('?page=login&op=request_recover_password').then(function(url) {
-                        ajaxPromise(url, 'POST', 'JSON',{'email':$('#email-recover').val()}).then(function(data) {
-                            if (data[0] == true) {
-                                toastr.info("Se ha enviado a tu correo un link para cambiar la contraseña");
-                            }else if (data[0] == false) {
-                                if (data['email'] == false) {
-                                    $('#error-email-recover').text('El email introducido no existe');
-                                }
-                                if (data['email'] == true) {
-                                    $('#error-email-recover').text('');
-                                }
-                            }
-                        }).catch(function(textStatus) {
-                            console.log("hola")
-                            // window.location.href = '/503';
-                        }); 
-                    }); 
+    $scope.requestRecoverPass = function () {
+        $scope.validateRecoverPassEmail();
+        data={'email':$scope.emailRecoverPassval};
+        if ($scope.emailrecoverPass==true) {
+            services_login.requestRecoverPassword(data).then((response) => {
+                if (response[0] == true) {
+                    toastr.info("Se ha enviado a tu correo un link para cambiar la contraseña");
+                }else if (response[0] == false) {
+                    if (response['email'] == false) {
+                        toastr.info("El email introducido no existe");
+                    }
+                    if (response['email'] == true) {
+                        toastr.info("Email enviado, revise su correo");
+                        $scope.emailRecoverPassError="";
+                    }
                 }
             });
+        }
     }
 
-    function recover_password() {
-        $('#recover-password-cpass').on('click', function() {
-            url=window.location.href.split('/');
-            token=url[5];
-            if (validate_recover_password()==true) {
-                friendlyURL('?page=login&op=recover_password').then(function(url) {
-                    ajaxPromise(url, 'POST', 'JSON',{'password':$('#password-recover').val(),'token':token}).then(function(data) {
-                        if (data['token'] == true) {
-                            if (data['invalid_token' == true]) {
-                                toastr.info("Token invalido vuelva a solicitar el cambio de contraseña");
-                            }else{
-                                if (data[0]==true) {
-                                    toastr.info("Se ha cambiado la contraseña con exito"); 
-                                }else{
-                                    toastr.info("Usuario no existente");
-                                }
-                            }
-                        }else {
-                            window.location.href = '/login';
-                        }
-                    }).catch(function() {
-                        // window.location.href = '/503';
-                    }); 
-                }); 
-            }
-        });
-    }
-
-    $scope.cookieCheck = function () {
-        validate=$cookies.get('validate');
-        if (!(validate == null)) {
-            toastr.info(validate);
-            $cookies.remove('validate');
+    $scope.validatePasswordRecoverPass = function () {
+        var passwordre =/(?=.*\d.*)(?=.*[A-Z].*)(?=.*[a-z].*).{8,}/;
+        if (!passwordre.test(this.passRecoverPassval)) {
+            $scope.passRecoverPassError="La contraseña debe tener por lo menos 8 cáracteres,1 letra minúscula, 1 letra mayúscula y 1 número";
+            $scope.validatePassRecoverPass=false;
+        }else {
+            $scope.validatePassRecoverPass=true;
+            $scope.passRecoverPassError="";
         }
     };
 
-    function social_load() {
-        url=window.location.href.split('/');
-        check_login=url[4];
-        if (check_login=='list' || check_login==null) {
-            social_config();
-            social_google();
-            social_ghub();
+    $scope.validateConfPasswordRecoverPass = function () {
+        if (this.confPassRecoverPassval != $scope.passRecoverPassval) {
+            $scope.confPasswordRegisterError="Las contraseñas deben ser iguales";
+            $scope.validateConfPassRecoverPass=false;
+        }else {
+            $scope.validateConfPassRecoverPass=true;
+            $scope.confPasswordRegisterError="";
+        }
+    };
+
+    $scope.validateRecoverPass = function () {
+        $scope.validatePasswordRecoverPass();
+        $scope.validateConfPasswordRecoverPass();
+        if ($scope.validatePassRecoverPass==true && $scope.validateConfPassRecoverPass==true) {
+            validate=true;
+        }else {
+            validate=false;
+        }
+        return validate;
+    };
+
+    $scope.recoverPassword = function () {
+        data={'password':$scope.passRecoverPassval,'token':$route.current.params.token};
+        if ($scope.validateRecoverPass() == true) {
+            services_login.recoverPassword(data).then((response) => {
+                if (response['token'] == true) {
+                    if (response['invalid_token' == true]) {
+                        toastr.info("Token invalido vuelva a solicitar el cambio de contraseña");
+                    }else{
+                        if (response[0]==true) {
+                            toastr.info("Se ha cambiado la contraseña con exito"); 
+                            $location.path('/login');
+                        }else{
+                            toastr.info("Usuario no existente");
+                        }
+                    }
+                }else {
+                    $location.path('/login');
+                }
+            });
         }
     }
 });

@@ -105,26 +105,23 @@
 
         function showlike(){
             $token=$_POST['token'];
-            $idproduct=$_POST['idproduct'];
             $token=$this->$middleware->decode($token);
             if ($token['invalid_token'] == true) {
                 $result['invalid_token']=true;
             }else{
                 $userid=$token['userid'];
-                $sql = "SELECT iduser,idvideogame
+                $sql = "SELECT idvideogame
                 FROM favorites
-                WHERE iduser=$userid && idvideogame=$idproduct";
+                WHERE iduser='$userid'";
                 $conexion = connect::con();
                 $res = mysqli_query($conexion, $sql);
                 if (!$res) {
-                    $result['like']=false;
+                    $result['likes']=false;
                 }else{
-                    $row = $res->fetch_assoc();
-                    if ($row['iduser']==$userid && $row['idvideogame']==$idproduct) {
-                        $result['like']=true;
-                    }else {
-                        $result['like']=false;
+                    while($row = $res->fetch_array(MYSQLI_ASSOC)) {
+                        $resArray[] = $row['idvideogame'];
                     }
+                    $result['likes']=$resArray;
                 }
                 $result['invalid_token']=false;
                 $result['token']=$this->$middleware->encode($userid);

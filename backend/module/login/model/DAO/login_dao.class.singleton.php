@@ -205,7 +205,7 @@
                 $email_data['type']='recover_password';
                 $email_data['email']=$_POST['email'];
                 $token=$this->$middleware->encode($check['id']);
-                $email_data['token']="http://localhost/login/listrecover/$token";
+                $email_data['token']="http://localhost/#/recoverPassword/$token";
                 $result['result']=mail::sendEmail($email_data);
                 $check[0]=true;
             }else{

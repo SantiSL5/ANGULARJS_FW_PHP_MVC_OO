@@ -1,7 +1,7 @@
 <div id="loginbg">
     <div id="login">
         <div id="options-login">
-            <button id="register-option">Register</button>
+            <button id="register-option" ng-click="registerbtn()">Register</button>
             <button id="login-option">Login</button>
         </div>
         <div id="content-login">
@@ -11,7 +11,7 @@
                 <input id="password-login" type="password" placeholder="Password" ng-model="passwordLoginval">
                 <p id="error-password-login" class="error">{{passwordLoginError}}</p>
                 <button name="login-btn" type="button" id="login-btn" ng-click="login()">Login</button>
-                <button name="recover-password" type="button" id="recover-password">Recover password</button>
+                <button name="recover-password" type="button" id="recover-password" ng-click="recoverPasswordChange()">Recover password</button>
                 <div id="social">
                     <button name="google-btn" type="button" id="google-btn" ng-click="socialGoogle()">Log-in Google</button>
                     <button name="github-btn" type="button" id="github-btn" ng-click="socialGhub()">Log-in Github</button>
