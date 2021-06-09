@@ -86,12 +86,13 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
         services_menu.autoComplete(dataac).then((response) => {
             if (response==0) {
                 $rootScope.found=false;
+                $rootScope.$apply();
             }else{
                 $rootScope.found=true;
                 $rootScope.resultsearch=response;
+                $rootScope.$apply();
             }
         });
-
     }
 
     $rootScope.selectname = function() {
@@ -114,7 +115,9 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
         $rootScope.changelang();
     });
 
+
     $rootScope.checkToken = function() {
+        $rootScope.changelang();
         token = localStorage.getItem('token');
         if (token == null) {
             $rootScope.logout();
@@ -147,6 +150,15 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
         localStorage.removeItem('token');
         $rootScope.logued=false;
     }
-    
+
+    var config = {
+        apiKey: API_KEY_SS,
+        authDomain: AUTH_DOMAIN,
+        databaseURL: DATABASE_URL,
+        projectId: PROJECTID,
+        storageBucket: "",
+        messagingSenderId: MESSAGING_SENDER_ID
+    };
+    firebase.initializeApp(config);
     $rootScope.checkToken();
 });

@@ -1,16 +1,6 @@
 arcadeshop.controller('login_controller', function($scope, $rootScope, $route, toastr, $location,services_login) {
 
-    var config = {
-        apiKey: API_KEY_SS,
-        authDomain: AUTH_DOMAIN,
-        databaseURL: DATABASE_URL,
-        projectId: PROJECTID,
-        storageBucket: "",
-        messagingSenderId: MESSAGING_SENDER_ID
-    };
-
     $scope.socialGhub = function (data) {
-        firebase.initializeApp(config);
         var provider = new firebase.auth.GithubAuthProvider();
         provider.addScope('email');
         var authService = firebase.auth();
@@ -27,7 +17,6 @@ arcadeshop.controller('login_controller', function($scope, $rootScope, $route, t
                         $rootScope.logued=true;
                         $location.path('/home');
                     }
-                    $scope.$apply();
                 });
             })
             .catch(function(error) {
@@ -36,7 +25,6 @@ arcadeshop.controller('login_controller', function($scope, $rootScope, $route, t
     };
 
     $scope.socialGoogle = function (data) {
-        firebase.initializeApp(config);
         var provider = new firebase.auth.GoogleAuthProvider();
         provider.addScope('email');
         var authService = firebase.auth();
@@ -51,9 +39,9 @@ arcadeshop.controller('login_controller', function($scope, $rootScope, $route, t
                         toastr.info("Logueado Correctamente");
                         localStorage.removeItem('token');
                         localStorage.setItem('token', response['token']);
+                        $rootScope.logued=true;
                         $location.path('/home');
                     }
-                    $scope.$apply();
                 });
             })
             .catch(function(error) {
