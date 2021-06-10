@@ -1,4 +1,4 @@
-arcadeshop.controller('shop_controller', function($scope, $rootScope, services_shop, sliderdata, plataforms, genres) {
+arcadeshop.controller('shop_controller', function($scope, $rootScope, toastr, services_shop, sliderdata, plataforms, genres) {
     $scope.optionshop="all";
     $scope.ages=[3,7,12,16,18];
     $scope.plataforms=plataforms;
@@ -17,18 +17,29 @@ arcadeshop.controller('shop_controller', function($scope, $rootScope, services_s
             products_page=4;
             max_pages=3;
             $scope.pages_showed=[];
-            if (response['count']==0) {
-                $scope.existproducts=false;
-                numproducts=0;
-            }else {
-                $scope.existproducts=true;
-                $scope.allproducts=response[1];
-                numproducts=response[0];
-                $scope.numpages=Math.ceil(numproducts/products_page);
-                pages=Array.from({length: $scope.numpages}, (_, index) => index + 1);
-                for (let i = 0; i < pages.length; i++) {
-                    if (pages[i] >= $scope.actualpage && pages[i] < $scope.actualpage + max_pages) {
-                        $scope.pages_showed.push(pages[i]);
+            if (response['invalid_token'] == true){
+                $rootScope.logout();
+                toastr.info('Sesión invalida');
+            }else{
+                localStorage.setItem("token", response['token']);
+                if (response['count']==0) {
+                    $scope.existproducts=false;
+                    numproducts=0;
+                }else {
+                    if (response['likes']==false || response['likes']==null) {
+                        $scope.likes=[];
+                    }else {
+                        $scope.likes=response['likes'];
+                    }
+                    $scope.existproducts=true;
+                    $scope.allproducts=response[1];
+                    numproducts=response[0];
+                    $scope.numpages=Math.ceil(numproducts/products_page);
+                    pages=Array.from({length: $scope.numpages}, (_, index) => index + 1);
+                    for (let i = 0; i < pages.length; i++) {
+                        if (pages[i] >= $scope.actualpage && pages[i] < $scope.actualpage + max_pages) {
+                            $scope.pages_showed.push(pages[i]);
+                        }
                     }
                 }
             }
@@ -110,6 +121,30 @@ arcadeshop.controller('shop_controller', function($scope, $rootScope, services_s
 
     $scope.cleandetails = function () {
         $scope.optionshop="all";
+    };
+
+    $scope.like = function () {
+        token=localStorage.getItem('token');
+        if (token===null || typeof tokensideBar === 'undefined') {
+            toastr.info("Necesitas loguearte para dar like");
+        }else{
+            data={'token':token,'idproduct':this.videogame.id}
+            if ($scope.likes.indexOf(this.videogame.id) != -1) {
+                $scope.likes.splice($scope.likes.indexOf(this.videogame.id), 1);
+                this.videogame.likes=parseInt(this.videogame.likes,10)-1;
+            }else if ($scope.likes.indexOf(this.videogame.id) == -1) {
+                $scope.likes.push(this.videogame.id);
+                this.videogame.likes=parseInt(this.videogame.likes,10)+1;
+            }
+            services_shop.like(data).then((response) => {
+                if (response['invalid_token'] == true){
+                    $rootScope.logout();
+                    toastr.info('Sesión invalida');
+                }else{
+                    localStorage.setItem("token", response['token']);
+                }
+            });
+        }
     };
 
     $scope.actualpage=1;

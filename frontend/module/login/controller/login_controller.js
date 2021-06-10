@@ -8,13 +8,13 @@ arcadeshop.controller('login_controller', function($scope, $rootScope, $route, t
             .then(function(result) {
                 data={type:'GHU','id':result.user.uid,'username':result.user.displayName,'email':result.user.email,'photo':result.user.photoURL};
                 services_login.socialLogin(data).then((response) => {
-                    if (data['operation']=='email-in-use') {
+                    if (response['operation']=='email-in-use') {
                         toastr.error("El email ya se esta usando en una cuenta");
                     }else{
-                        toastr.info("Logueado Correctamente");
                         localStorage.removeItem('token');
                         localStorage.setItem('token', response['token']);
                         $rootScope.logued=true;
+                        $rootScope.checkToken();
                         $location.path('/home');
                     }
                 });
@@ -33,13 +33,14 @@ arcadeshop.controller('login_controller', function($scope, $rootScope, $route, t
             .then(function(result) {
                 data={type:'GU','id':result.user.uid,'username':result.user.displayName,'email':result.user.email,'photo':result.user.photoURL};
                 services_login.socialLogin(data).then((response) => {
-                    if (data['operation']=='email-in-use') {
+                    if (response['operation']=='email-in-use') {
                         toastr.error("El email ya se esta usando en una cuenta");
                     }else{
                         toastr.info("Logueado Correctamente");
                         localStorage.removeItem('token');
                         localStorage.setItem('token', response['token']);
                         $rootScope.logued=true;
+                        $rootScope.checkToken();
                         $location.path('/home');
                     }
                 });

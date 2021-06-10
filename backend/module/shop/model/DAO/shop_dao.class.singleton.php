@@ -18,6 +18,7 @@
             $num_page=$_POST['num_page'];
             $minrange=$_POST['minrange'];
             $maxrange=$_POST['maxrange'];
+            $token=$_POST['token'];
             if (!$minrange) {
                 $minrange=$this->rangeslider()[0]['minim'];
             }
@@ -34,11 +35,33 @@
             $age=$_POST['age'];
             $genero=$_POST['genero'];
             $nombre=$_POST['search'];
-            $sql2 = "SELECT COUNT(id) AS count FROM videogames WHERE plataforma LIKE '%$plataform%' AND clasificacion LIKE '%$age%' AND generos LIKE '%$genero%' AND nombre LIKE '%$nombre%' ORDER BY views";
+            $sql2 = "SELECT COUNT(id) AS count FROM videogames WHERE precio BETWEEN $minrange AND $maxrange AND  plataforma LIKE '%$plataform%' AND clasificacion LIKE '%$age%' AND generos LIKE '%$genero%' AND nombre LIKE '%$nombre%' ORDER BY views";
             $sql = "SELECT * FROM videogames WHERE precio BETWEEN $minrange AND $maxrange AND plataforma LIKE '%$plataform%' AND clasificacion LIKE '%$age%' AND generos LIKE '%$genero%' AND nombre LIKE '%$nombre%' ORDER BY views DESC LIMIT $limit OFFSET $offset";
             $conexion = connect::con();
             $res = mysqli_query($conexion, $sql);
             $res2 = mysqli_query($conexion, $sql2);
+            if ($token!=null && $token!="undefined") {
+                $token=$this->$middleware->decode($token);
+                if ($token['invalid_token'] == true) {
+                    $result['invalid_token']=true;
+                }else{
+                    $userid=$token['userid'];
+                    $sql3 = "SELECT idvideogame
+                    FROM favorites
+                    WHERE iduser='$userid'";
+                    $res3 = mysqli_query($conexion, $sql3);
+                    while($row3 = $res3->fetch_array(MYSQLI_ASSOC)) {
+                        $resArrayLikes[] = $row3['idvideogame'];
+                    }
+                    if ($resArrayLikes==null) {
+                        $resArraytotal['likes']=false;
+                    }else{
+                        $resArraytotal['likes']=$resArrayLikes;
+                    }
+                    $resArraytotal['invalid_token']=false;
+                    $resArraytotal['token']=$this->$middleware->encode($userid);
+                }
+            }
             connect::close($conexion);
             $row2 = $res2->fetch_assoc();
 
@@ -140,16 +163,16 @@
                 $userid=$token['userid'];
                 $sql = "SELECT COUNT(*) AS 'check'
                 FROM favorites 
-                WHERE iduser=$userid && idvideogame=$idproduct";
+                WHERE iduser='$userid' && idvideogame='$idproduct'";
                 $conexion = connect::con();
                 $res = mysqli_query($conexion, $sql);
                 $row = $res->fetch_assoc();
                 if ($row['check']==0) {
                     // echo("user:".$iduser."pro: ".$idproduct);
-                    $sql2="INSERT INTO favorites (iduser, idvideogame) VALUES ($userid,$idproduct)";
+                    $sql2="INSERT INTO favorites (iduser, idvideogame) VALUES ('$userid',$idproduct)";
                     $result['like']=true;
                 }else {
-                    $sql2="DELETE FROM favorites WHERE iduser=$userid && idvideogame=$idproduct";
+                    $sql2="DELETE FROM favorites WHERE iduser='$userid' && idvideogame=$idproduct";
                     $result['like']=false;
                 }
                 $res2 = mysqli_query($conexion, $sql2);

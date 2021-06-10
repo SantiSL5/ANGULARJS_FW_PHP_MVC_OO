@@ -42,7 +42,8 @@
                 </div>
                 <div class="divbutton">
                     <span class="likes">{{videogame['likes']}}</span>
-                    <img class="not_like" src="frontend/assets/img/heart.png">
+                    <img class="like" ng-click="like()" src="frontend/assets/img/heart_like.png" ng-show="likes.indexOf(videogame.id) != -1">
+                    <img class="not_like" ng-click="like()" src="frontend/assets/img/heart.png" ng-show="likes.indexOf(videogame.id) == -1">
                     <span class="views">{{videogame['views']}}</span>
                     <img class="eye" src="frontend/assets/img/eye.png">
                     <span class="price">{{videogame['precio']}}€</span>

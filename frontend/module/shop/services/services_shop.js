@@ -22,7 +22,7 @@ arcadeshop.factory('services_shop', ['services' , function(services) {
 
     function like(data) {
         return new Promise((resolve,reject) => {
-            services.post('shop', 'showlike', data)
+            services.post('shop', 'like', data)
             .then(function(response) {
                 resolve(response);
             });

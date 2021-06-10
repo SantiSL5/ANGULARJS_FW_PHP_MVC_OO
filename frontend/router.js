@@ -125,17 +125,17 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
             datamenu={"token":token};
             services_login.menuInfo(datamenu).then((response) => {
                 if (response['invalid_token'] == true){
+                    toastr.info("La sesión ha expirado vuelvete a loguear");
                     $rootScope.logout();
-                    $rootScope.logued=false;
                 }else{
                     localStorage.setItem("token", response['token']);
                     $rootScope.usernameMenu=response['username'];
                     $rootScope.avatarMenu=response['avatar'];
                     $rootScope.logued=true;
                 }
+                $rootScope.$apply();
             });
         }
-        $rootScope.$apply();
     }
 
     $rootScope.registerbtn = function() {
