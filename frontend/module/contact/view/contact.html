@@ -1,11 +1,13 @@
-<div id="contact">
-    <div id="content-contact">
-        <form id="contact-form">
-            <input id="email-contact" type="email" placeholder="Email (Optional)">
-            <p id="error-email-contact" class="error"></p>
-            <input id="message-contact" type="text" placeholder="Message">
-            <p id="error-message-contact" class="error"></p>
-            <button name="contact-btn" type="button" id="contact-btn">Contact</button>
-        </form>
-    </div>
-</div>   
+<div id="bc">
+    <div id="contact">
+        <div id="content-contact">
+            <form id="contact-form">
+                <input id="email-contact" type="email" placeholder="Email (Optional)" ng-model="emailContactval" ng-keydown="emailContact()" ng-keyup="emailContact()">
+                <p id="error-email-contact" class="error">{{emailContactError}}</p>
+                <input id="message-contact" type="text" placeholder="Message" ng-model="msgContactval" ng-keydown="msgContact()" ng-keyup="msgContact()">
+                <p id="error-message-contact" class="error">{{msgContactError}}</p>
+                <button name="contact-btn" type="button" id="contact-btn" ng-click="contact()">Contact</button>
+            </form>
+        </div>
+    </div>   
+</div>

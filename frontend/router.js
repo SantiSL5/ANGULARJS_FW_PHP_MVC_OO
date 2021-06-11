@@ -59,6 +59,10 @@ arcadeshop.config(['$routeProvider', '$locationProvider',
                 // resolve: {
 
                 // }
+                }).when("/contact", {templateUrl: "frontend/module/contact/view/contact.html", controller: "contact_controller",
+                // resolve: {
+
+                // }
                 }).otherwise("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller"});
     }]);
 
