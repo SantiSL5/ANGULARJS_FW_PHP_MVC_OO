@@ -19,4 +19,17 @@
             </div>
         </div>
     </data-owl-carousel>
+    <div id="relatedtextdiv">
+        <h1>Related products</h1>
+    </div>
+    <div id="relateddiv">
+        <div class="prod_content" ng-repeat="item in relatedshowed">
+            <div class="img-prod"><img src="{{item.volumeInfo.imageLinks.thumbnail}}" alt="Generic placeholder image"></div>
+            <h4>{{item.volumeInfo.title}}</h4>
+            <p><a class="btn btn-default" href="{{item.volumeInfo.previewLink}}" role="button" target="_blank">Ver</a></p>
+        </div>
+    </div>
+    <div id="buttonshowmorediv">
+        <button id="show_more" ng-click="showrelated()">Show more...</button>
+    </div>
 </div>

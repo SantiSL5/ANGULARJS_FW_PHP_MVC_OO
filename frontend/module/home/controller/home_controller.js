@@ -1,4 +1,4 @@
-arcadeshop.controller('home_controller',function($scope, $location, carousel, plataforms) {
+arcadeshop.controller('home_controller',function($http, $scope, $location, carousel, plataforms) {
     $scope.carousel= carousel;
     $scope.plataforms = plataforms;
     $scope.plataform = function () {
@@ -11,6 +11,24 @@ arcadeshop.controller('home_controller',function($scope, $location, carousel, pl
         sessionStorage.setItem('genero', idgen);
         $location.path('shop').replace();
     };
+
+    $scope.showrelated = function () {
+        if (typeof $scope.limit==="undefined") {
+            $scope.limit=2;
+        }else{
+            $scope.limit=$scope.limit+2;
+        }
+        $http.get('https://www.googleapis.com/books/v1/volumes?q=games')
+        .then(function(response) {
+            $scope.related = response.data.items;
+            if ($scope.limit<=$scope.related.length) {
+                $scope.relatedshowed=$scope.related.slice(0, $scope.limit);
+            }
+        })
+    };
+
+    $scope.showrelated();
+
 }).directive("owlCarousel", function() {
     return {
         restrict: 'E',
