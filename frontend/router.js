@@ -63,6 +63,10 @@ arcadeshop.config(['$routeProvider', '$locationProvider',
                 // resolve: {
 
                 // }
+                }).when("/cart", {templateUrl: "frontend/module/cart/view/cart.html", controller: "cart_controller",
+                // resolve: {
+
+                // }
                 }).otherwise("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller"});
     }]);
 
@@ -123,7 +127,7 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
     $rootScope.checkToken = function() {
         $rootScope.changelang();
         token = localStorage.getItem('token');
-        if (token == null) {
+        if (token == null || token == "undefined") {
             $rootScope.logout();
         }else{
             datamenu={"token":token};
@@ -133,6 +137,11 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
                     $rootScope.logout();
                 }else{
                     localStorage.setItem("token", response['token']);
+                    if (response['num_products']==null) {
+                        $rootScope.cartNumProducts=0;
+                    }else {
+                        $rootScope.cartNumProducts=response['num_products'];
+                    }
                     $rootScope.usernameMenu=response['username'];
                     $rootScope.avatarMenu=response['avatar'];
                     $rootScope.logued=true;
@@ -148,6 +157,10 @@ arcadeshop.run(function($rootScope, $location, $route, services, services_menu, 
 
     $rootScope.loginbtn = function() {
         $location.path('/login');
+    }
+
+    $rootScope.cartbtn = function() {
+        $location.path('/cart');
     }
 
     $rootScope.logout = function() {

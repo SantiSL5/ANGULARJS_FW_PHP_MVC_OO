@@ -10,8 +10,8 @@ class controller_cart {
         echo json_encode($json);
     }
     
-    function menuCart() {
-        $json = common::loadModel(MODEL_PATH_CART, "cart_model", "menuCart",$con);
+    function deleteCart() {
+        $json = common::loadModel(MODEL_PATH_CART, "cart_model", "deleteCart",$con);
         echo json_encode($json);
     }
 

@@ -21,11 +21,11 @@ class cart_bll {
     public function listCart_BLL() {
         return $this->dao->listCart();
     }
-    
-    public function menuCart_BLL() {
-        return $this->dao->menuCart();
-    }
 
+    public function deleteCart_BLL() {
+        return $this->dao->deleteCart();
+    }
+    
     public function addCart_BLL() {
         return $this->dao->addCart();
     }

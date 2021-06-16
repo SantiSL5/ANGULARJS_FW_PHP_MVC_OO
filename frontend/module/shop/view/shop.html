@@ -48,7 +48,7 @@
                     <img class="eye" src="frontend/assets/img/eye.png">
                     <span class="price">{{videogame['precio']}}€</span>
                     <button class="showdetails" ng-click="details()">Show details</button>
-                    <img class="cartbtn_shop" src="frontend/assets/img/cart.png">
+                    <img class="cartbtn_shop" src="frontend/assets/img/cart.png" ng-click="addQuant()">
                 </div>
             </div>
         </div>
@@ -75,7 +75,13 @@
                     <img src="frontend/assets/img/eye.png" class="eye">
                 </span>
             </li>
+            <li>
+                <h2 class="views">{{detailsproduct['likes']}}</h2>
+                <img class="like" ng-click="like()" src="frontend/assets/img/heart_like.png" ng-show="likes.indexOf(detailsproduct.id) != -1">
+                <img class="not_like" ng-click="like()" src="frontend/assets/img/heart.png" ng-show="likes.indexOf(detailsproduct.id) == -1">
+            </li>
             <li><h2>Price: {{detailsproduct['precio']}}€</h2></li>
+            <li><img class="cartbtn_shop" src="frontend/assets/img/cart.png" ng-click="addQuant()"></li>
         </ul>
     </div>
     <button ng-click="cleandetails()">Volver a la tienda</button>

@@ -84,8 +84,6 @@ arcadeshop.controller('home_controller',function($scope, $location, carousel, pl
         restrict: 'A',
         transclude: false,
         link: function(scope, element) {
-            // console.log(element);
-            // wait for the last item in the ng-repeat then call init
             if(scope.$last) {
                 scope.initCarousel(element.parent());
             }

@@ -83,11 +83,10 @@
             $sql2 = "UPDATE videogames SET views=views+1 WHERE id='$videogame'";
             $conexion = connect::con();
             $res = mysqli_query($conexion, $sql);
-            mysqli_query($conexion, $sql2);
-            connect::close($conexion);
-            while($row = $res->fetch_array(MYSQLI_ASSOC)) {
-                $resArray[] = $row;
+            if ($res!=null) {
+                mysqli_query($conexion, $sql2);
             }
+            connect::close($conexion);
             return $resArray;
         }
 

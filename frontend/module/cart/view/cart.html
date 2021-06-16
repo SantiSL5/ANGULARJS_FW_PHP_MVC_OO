@@ -1,27 +1,29 @@
 <div id="cart">
-    <div id="products">
-        <!-- <div class="card">
+    <div id="products" ng-show="cartexistproducts == true">
+        <div class="card-cart" ng-repeat="cartitem in cartproducts ">
             <div class="info">
                 <div class="product-name">
-                    <h1>Holaaaaa</h1>
+                    <h1>{{cartitem['nombre']}}</h1>
                 </div>
                 <div class="product-info">
-                    <span>Precio individual:</span>
-                    <span>20€</span>
-                    <button class="substractbtn">-</button>
-                    <span>3</span>
-                    <button class="addbtn">+</button>
+                    <span>Precio unitario:</span>
+                    <span>{{cartitem['precio']}}€</span>
+                    <button class="substractbtn" ng-click="substQuant()">-</button>
+                    <span>{{cartitem['cant']}}</span>
+                    <button class="addbtn" ng-click="addQuant()">+</button>
                     <span>Total:</span>
-                    <span>40€</span>
+                    <span>{{cartitem['total_product']}}€</span>
+                    <button ng-click="deleteCart()">Eliminar</button>
                 </div>
             </div>
             <div class="img-product">
-                <img src="/module/cart/view/img/general.png" alt="">
+                <img src="{{cartitem['img']}}" alt="">
             </div>
-        </div> -->
+        </div>
     </div>
     <div id="checkout-cart">
-        <!-- <span>Total: 50€</span>
-        <button id="checkout-btn">Checkout</button> -->
+        <span ng-show="cartexistproducts == true">Total: {{totalCart}}€</span>
+        <button id="checkout-btn" ng-show="cartexistproducts == true" ng-click="checkout()">Checkout</button>
+        <h1 ng-show="cartexistproducts == false">No hay productos en el carrito</h1>
     </div>
 </div>

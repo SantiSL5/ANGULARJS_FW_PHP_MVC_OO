@@ -1,4 +1,4 @@
-arcadeshop.controller('shop_controller', function($scope, $rootScope, toastr, services_shop, sliderdata, plataforms, genres) {
+arcadeshop.controller('shop_controller', function($scope, $rootScope, toastr, services_shop, services_cart, sliderdata, plataforms, genres) {
     $scope.optionshop="all";
     $scope.ages=[3,7,12,16,18];
     $scope.plataforms=plataforms;
@@ -98,6 +98,12 @@ arcadeshop.controller('shop_controller', function($scope, $rootScope, toastr, se
         $scope.agesel='';
         $scope.generosel='';
         $scope.searchvalue='';
+        $scope.slider = {
+            min: sliderdata[0]['minim'],
+            max: sliderdata[0]['maxim'],
+            ceil: sliderdata[0]['maxim'],
+            floor: sliderdata[0]['minim'],
+        };
         $scope.listall({"num_page":1,"minrange":$scope.slider.min,"maxrange":$scope.slider.max});
     };
 
@@ -115,8 +121,12 @@ arcadeshop.controller('shop_controller', function($scope, $rootScope, toastr, se
     }
 
     $scope.details = function () {
-        $scope.optionshop="details";
         $scope.detailsproduct=this.videogame;
+        data={'id':$scope.detailsproduct.id}
+        services_shop.details(data).then((response) => {
+            $scope.applyfilters();
+            $scope.optionshop="details";
+        });
     };
 
     $scope.cleandetails = function () {
@@ -125,16 +135,17 @@ arcadeshop.controller('shop_controller', function($scope, $rootScope, toastr, se
 
     $scope.like = function () {
         token=localStorage.getItem('token');
-        if (token===null || typeof tokensideBar === 'undefined') {
+        if (token===null || typeof token === 'undefined') {
             toastr.info("Necesitas loguearte para dar like");
         }else{
-            data={'token':token,'idproduct':this.videogame.id}
-            if ($scope.likes.indexOf(this.videogame.id) != -1) {
-                $scope.likes.splice($scope.likes.indexOf(this.videogame.id), 1);
-                this.videogame.likes=parseInt(this.videogame.likes,10)-1;
-            }else if ($scope.likes.indexOf(this.videogame.id) == -1) {
-                $scope.likes.push(this.videogame.id);
-                this.videogame.likes=parseInt(this.videogame.likes,10)+1;
+            productlike=this.videogame || this.detailsproduct;
+            data={'token':token,'idproduct':productlike.id}
+            if ($scope.likes.indexOf(productlike.id) != -1) {
+                $scope.likes.splice($scope.likes.indexOf(productlike.id), 1);
+                productlike.likes=parseInt(productlike.likes,10)-1;
+            }else if ($scope.likes.indexOf(productlike.id) == -1) {
+                $scope.likes.push(productlike.id);
+                productlike.likes=parseInt(productlike.likes,10)+1;
             }
             services_shop.like(data).then((response) => {
                 if (response['invalid_token'] == true){
@@ -143,6 +154,36 @@ arcadeshop.controller('shop_controller', function($scope, $rootScope, toastr, se
                 }else{
                     localStorage.setItem("token", response['token']);
                 }
+            });
+        }
+    };
+
+    $scope.addQuant = function () {
+        token=localStorage.getItem('token');
+        if (token==null || token==undefined) {
+            toastr.info("Necesitas estar logueado para añadir productos al carrito");
+        }else{
+            productcart=this.videogame || this.detailsproduct;
+            data={'token':token,'idproduct':productcart.id};
+            services_cart.addQuant(data).then((response) => {
+                if (response['invalid_token'] == true){
+                    $rootScope.logout();
+                    toastr.info('Sesión invalida');
+                }else{
+                    if (response['result']==2) {
+                        toastr.info("No queda stock de este producto");
+                    }else if (response['result']==0) {
+                        toastr.info("No hay más stock en la tienda que "+response['quant']);
+                    }else {
+                        toastr.info("Añadido al carrito");
+                    }
+                    console.log(response['quant']);
+                    if (response['quant']==null) {
+                        $rootScope.cartNumProducts=parseInt($rootScope.cartNumProducts)+1;
+                    }
+                    localStorage.setItem("token", response['token']);
+                }
+                $rootScope.$apply();
             });
         }
     };

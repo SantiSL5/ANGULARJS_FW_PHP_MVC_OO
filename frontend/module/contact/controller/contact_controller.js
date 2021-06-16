@@ -30,7 +30,6 @@ arcadeshop.controller('contact_controller', function($scope, toastr, services_co
     $scope.validateContact = function () {
         $scope.emailContact();
         $scope.msgContact();
-        console.log(this.emailContactval);
         if ($scope.validateEmailContact==true && $scope.validateMsgContact==true) {
             validate=true;
         }else {

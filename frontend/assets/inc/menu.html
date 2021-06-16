@@ -34,6 +34,8 @@
 					<a id="username_menu" class="nav-link">{{usernameMenu}}</a>
 					<img src="{{avatarMenu}}" id="avatar_menu">
 					<button id="logoutbtn-nav" class="btn btn-outline-success me-2" ng-click="logout()">Logout</button>
+					<img src="frontend/assets/img/cart.png" id="cart_menu" ng-click="cartbtn()">
+					<a id="cart_menu_quant" class="nav-link">{{cartNumProducts}}</a>
 				</ul>
 				<ul class="navbar-nav justify-content-end" ng-show="logued == false">
 					<li class="nav-item">

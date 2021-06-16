@@ -11,3 +11,8 @@
 #button_search{
     height: 40px;
 }
+
+#cart_menu{
+    height: 40px; 
+    background-color:white;
+}

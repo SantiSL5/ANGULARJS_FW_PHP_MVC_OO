@@ -76,6 +76,7 @@
         }
 
         function menu_info(){
+
             $token=$_POST['token'];
             $token=$this->$middleware->decode($token);
             if ($token['invalid_token'] == true) {
@@ -83,9 +84,21 @@
             }else{
                 $userid=$token['userid'];
                 $sql = "SELECT * FROM users WHERE id='$userid'";
+                $sql2 = "SELECT COUNT(*) AS numproducts
+                FROM cart c
+                INNER JOIN videogames v
+                ON v.id=c.idvideogame
+                WHERE c.iduser='$userid'";
                 $conexion = connect::con();
                 $res = mysqli_query($conexion, $sql);
                 $row = $res->fetch_assoc();
+                $res2 = mysqli_query($conexion, $sql2);
+                if (!$res2) {
+                    $result['num_products']=0;
+                }else{
+                    $row2 = $res2->fetch_assoc();
+                    $result['num_products']=$row2['numproducts'];
+                }
                 $result['invalid_token']=false;
                 $result['username']=$row['username'];
                 $result['avatar']=$row['avatar'];

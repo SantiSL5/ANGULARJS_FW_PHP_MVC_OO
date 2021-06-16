@@ -26,43 +26,17 @@
                 FROM cart c
                 INNER JOIN videogames v
                 ON v.id=c.idvideogame
-                WHERE c.iduser=$userid";
-                $conexion = connect::con();
-                $res = mysqli_query($conexion, $sql);
-                if ($res) {
-                    while($row = $res->fetch_array(MYSQLI_ASSOC)) {
-                        $resArray[] = $row;
-                    }
-                    $result['cart_products']=$resArray;
-                }else {
-                    $result['cart_products']=null;
-                }
-                $result['invalid_token']=false;
-                $result['token']=$this->$middleware->encode($userid);
-                connect::close($conexion);
-            }
-            return $result;
-        }
-
-        function menuCart(){
-            $token=$_POST['token'];
-            $token=$this->$middleware->decode($token);
-            if ($token['invalid_token'] == true) {
-                $result['invalid_token']=true;
-            }else{
-                $userid=$token['userid'];
-                $sql = "SELECT COUNT(*) AS numproducts
-                FROM cart c
-                INNER JOIN videogames v
-                ON v.id=c.idvideogame
-                WHERE c.iduser=$userid";
+                WHERE c.iduser='$userid'";
                 $conexion = connect::con();
                 $res = mysqli_query($conexion, $sql);
                 if (!$res) {
-                    $result['num_products']=0;
-                }else{
-                    $row = $res->fetch_assoc();
-                    $result['num_products']=$row['numproducts'];
+                    $result['cart_products']=null;
+                }else {
+                    while($row = $res->fetch_array(MYSQLI_ASSOC)) {
+                        $row['total_product']=$row['precio'] * $row['cant'];
+                        $resArray[] = $row;
+                    }
+                    $result['cart_products']=$resArray;
                 }
                 $result['invalid_token']=false;
                 $result['token']=$this->$middleware->encode($userid);
@@ -70,7 +44,6 @@
             }
             return $result;
         }
-
 
         function addQuant(){
             $token=$_POST['token'];
@@ -80,7 +53,7 @@
                 $result['invalid_token']=true;
             }else{
                 $userid=$token['userid'];
-                $sql = "CALL add_Quant($videogameid,$userid);";
+                $sql = "CALL add_Quant($videogameid,'$userid');";
                 $conexion = connect::con();
                 $res = mysqli_query($conexion, $sql);
                 $row = $res->fetch_assoc();
@@ -101,7 +74,7 @@
                 $result['invalid_token']=true;
             }else{
                 $userid=$token['userid'];
-                $sql = "CALL subst_Quant($videogameid,$userid);";
+                $sql = "CALL subst_Quant($videogameid,'$userid');";
                 $conexion = connect::con();
                 $res = mysqli_query($conexion, $sql);
                 $row = $res->fetch_assoc();
@@ -114,6 +87,26 @@
             return $result;
         }
 
+        function deleteCart(){
+            $token=$_POST['token'];
+            $videogameid=$_POST['idproduct'];
+            $token=$this->$middleware->decode($token);
+            if ($token['invalid_token'] == true) {
+                $result['invalid_token']=true;
+            }else{
+                $userid=$token['userid'];
+                $sql = "DELETE FROM cart
+                        WHERE iduser='$userid' AND idvideogame=$videogameid";
+                $conexion = connect::con();
+                mysqli_query($conexion, $sql);
+                $result['invalid_token']=false;
+                $result['token']=$this->$middleware->encode($userid);
+                connect::close($conexion);
+            }
+            return $result;
+        }
+
+
         function totalCart(){
             $token=$_POST['token'];
             $token=$this->$middleware->decode($token);
@@ -122,7 +115,7 @@
             }else{
                 $totalCart=0;
                 $userid=$token['userid'];
-                $sql = "CALL totalCart($userid)";
+                $sql = "CALL totalCart('$userid')";
                 $conexion = connect::con();
                 $res = mysqli_query($conexion, $sql);
                 $row = $res->fetch_assoc();
@@ -142,7 +135,7 @@
             }else{
                 $totalCart=0;
                 $userid=$token['userid'];
-                $sql = "CALL order_complete($userid)";
+                $sql = "CALL order_complete('$userid')";
                 $conexion = connect::con();
                 $res = mysqli_query($conexion, $sql);
                 $result['invalid_token']=false;

@@ -18,9 +18,9 @@ class cart_model {
     public function listCart() {
         return $this->bll->listCart_BLL();
     }
-    
-    public function menuCart() {
-        return $this->bll->menuCart_BLL();
+
+    public function deleteCart() {
+        return $this->bll->deleteCart_BLL();
     }
 
     public function addCart() {

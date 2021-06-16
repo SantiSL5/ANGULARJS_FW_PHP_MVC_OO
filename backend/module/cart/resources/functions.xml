@@ -9,12 +9,8 @@
         <uri>listCart</uri>
     </function>
     <function>
-        <name>menuCart</name>
-        <uri>menuCart</uri>
-    </function>
-    <function>
-        <name>addCart</name>
-        <uri>addCart</uri>
+        <name>deleteCart</name>
+        <uri>deleteCart</uri>
     </function>
     <function>
         <name>totalCart</name>
