@@ -52,7 +52,7 @@ This application have the following modules.
 
 Module | Description
 :--- | :---
-Home | Main page of the application where you can see two carrousels with the categories and the plataforms of the prof
+Home | Main page of the application where you can see two carrousels with the categories and the plataforms of the products.
 Shop | Show all the videogames where you can use a filtering system by price slider, age recomended and genre.
 Login | It allows you to register and login in the application, it sent you an email when you register with the form of the application and you can recover your password if you want to change it or you forget your password.
 Social SignIn | It allows you to login using your Gmail and GitHub accounts.
