@@ -5,7 +5,7 @@ Web application made on 1st year of higher education training cycle of DAW (Web 
 The next images are a sample of how the application looks like.
 
 ### Home
-![Preview home](https://user-images.githubusercontent.com/76181286/122331139-a34e5180-cf34-11eb-96e3-f4aa350b70b2.png)
+![Preview home](https://user-images.githubusercontent.com/76181286/122332034-14423900-cf36-11eb-9d3f-a24ebdc66127.png)
 ![Preview home](https://user-images.githubusercontent.com/76181286/122331143-a47f7e80-cf34-11eb-89e1-5856f56b0fc8.png)
 ![Preview home](https://user-images.githubusercontent.com/76181286/122331291-ddb7ee80-cf34-11eb-9615-c0eb90e32ef3.png)
 
