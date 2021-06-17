@@ -1,4 +1,4 @@
-# FW_PHP_MVC_OO_JQuery
+# ANGULARJS_FW_PHP_MVC_OO
 Web application made on 1st year of higher education training cycle of DAW (Web Application Development)
 
 ## Preview
