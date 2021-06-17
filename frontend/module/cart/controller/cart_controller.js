@@ -73,7 +73,8 @@ arcadeshop.controller('cart_controller', function($rootScope, $scope, $location,
                 }else{
                     localStorage.setItem("token", response['token']);
                 }
-                if (response['result']="delete") {
+                console.log()
+                if (response['result']=="delete") {
                     $rootScope.cartNumProducts=parseInt($rootScope.cartNumProducts)-1;
                 }
                 $rootScope.$apply();

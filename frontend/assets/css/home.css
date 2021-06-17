@@ -15,7 +15,6 @@
 #main-carousel.owl-carousel .owl-nav [class*=owl-] {
 	background: rgba(255, 255, 255, 0.3);
     color: rgba(255, 255, 255, 0.7);
-	/* color: rgba(0, 0, 0, 0.5); */
 	font-size: 23px;
 	width: 60px;
 	height: 60px;
@@ -87,7 +86,6 @@ button.category {
 	margin: none;
     background: rgba(255, 255, 255, 0.3);
     color: rgba(255, 255, 255, 0.7);
-	/* color: rgba(0, 0, 0, 0.5); */
 	font-size: 23px;
 	width: 200px;
 	height: 60px;
@@ -109,7 +107,6 @@ button.plataform {
 	margin: none;
     background: rgba(255, 255, 255, 0.3);
     color: rgba(255, 255, 255, 0.7);
-	/* color: rgba(0, 0, 0, 0.5); */
 	font-size: 23px;
 	width: 200px;
 	height: 60px;
@@ -166,7 +163,6 @@ button.plataform :hover {
 	margin: none;
     background: rgba(7, 7, 7, 0.788);
     color: rgba(255, 255, 255, 1);
-	/* color: rgba(0, 0, 0, 0.5); */
 	font-size: 23px;
 	width: 200px;
 	height: 60px;

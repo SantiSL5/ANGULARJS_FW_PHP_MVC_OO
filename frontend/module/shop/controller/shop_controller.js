@@ -135,7 +135,7 @@ arcadeshop.controller('shop_controller', function($scope, $rootScope, toastr, se
 
     $scope.like = function () {
         token=localStorage.getItem('token');
-        if (token===null || typeof token === 'undefined') {
+        if (token===null || token == 'undefined') {
             toastr.info("Necesitas loguearte para dar like");
         }else{
             productlike=this.videogame || this.detailsproduct;
@@ -160,7 +160,7 @@ arcadeshop.controller('shop_controller', function($scope, $rootScope, toastr, se
 
     $scope.addQuant = function () {
         token=localStorage.getItem('token');
-        if (token==null || token==undefined) {
+        if (token==null || token== 'undefined') {
             toastr.info("Necesitas estar logueado para añadir productos al carrito");
         }else{
             productcart=this.videogame || this.detailsproduct;
@@ -177,7 +177,6 @@ arcadeshop.controller('shop_controller', function($scope, $rootScope, toastr, se
                     }else {
                         toastr.info("Añadido al carrito");
                     }
-                    console.log(response['quant']);
                     if (response['quant']==null) {
                         $rootScope.cartNumProducts=parseInt($rootScope.cartNumProducts)+1;
                     }

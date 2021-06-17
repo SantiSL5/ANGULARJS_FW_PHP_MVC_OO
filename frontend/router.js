@@ -1,4 +1,3 @@
-// , 'toastr', 'ui.bootstrap'
 var arcadeshop = angular.module('arcadeshop', ['ngRoute','rzModule','toastr']);
 arcadeshop.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
@@ -33,14 +32,8 @@ arcadeshop.config(['$routeProvider', '$locationProvider',
                             return services.get('shop','categories');
                         }
                     }
-                }).when("/register", {templateUrl: "frontend/module/login/view/register.html", controller: "login_controller",
-                // resolve: {
-                    
-                // }
-                }).when("/login", {templateUrl: "frontend/module/login/view/login.html", controller: "login_controller",
-                // resolve: {
-
-                // }
+                }).when("/register", {templateUrl: "frontend/module/login/view/register.html", controller: "login_controller"
+                }).when("/login", {templateUrl: "frontend/module/login/view/login.html", controller: "login_controller"
                 }).when("/validate_account/:token", {
                     resolve: {
                         validateUser: function ($route, $location, services, toastr) {
@@ -51,22 +44,10 @@ arcadeshop.config(['$routeProvider', '$locationProvider',
                             });
                         },
                     }
-                }).when("/requestRecoverPassword", {templateUrl: "frontend/module/login/view/request_recover_password.html", controller: "login_controller",
-                // resolve: {
-
-                // }
-                }).when("/recoverPassword/:token", {templateUrl: "frontend/module/login/view/recover_password.html", controller: "login_controller",
-                // resolve: {
-
-                // }
-                }).when("/contact", {templateUrl: "frontend/module/contact/view/contact.html", controller: "contact_controller",
-                // resolve: {
-
-                // }
-                }).when("/cart", {templateUrl: "frontend/module/cart/view/cart.html", controller: "cart_controller",
-                // resolve: {
-
-                // }
+                }).when("/requestRecoverPassword", {templateUrl: "frontend/module/login/view/request_recover_password.html", controller: "login_controller"
+                }).when("/recoverPassword/:token", {templateUrl: "frontend/module/login/view/recover_password.html", controller: "login_controller"
+                }).when("/contact", {templateUrl: "frontend/module/contact/view/contact.html", controller: "contact_controller"
+                }).when("/cart", {templateUrl: "frontend/module/cart/view/cart.html", controller: "cart_controller"
                 }).otherwise("/", {templateUrl: "frontend/module/home/view/home.html", controller: "home_controller"});
     }]);
 

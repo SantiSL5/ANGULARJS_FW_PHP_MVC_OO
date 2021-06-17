@@ -167,7 +167,6 @@
                 $res = mysqli_query($conexion, $sql);
                 $row = $res->fetch_assoc();
                 if ($row['check']==0) {
-                    // echo("user:".$iduser."pro: ".$idproduct);
                     $sql2="INSERT INTO favorites (iduser, idvideogame) VALUES ('$userid',$idproduct)";
                     $result['like']=true;
                 }else {
@@ -181,10 +180,4 @@
             }
             return $result;
         }
-        // function viewup($videogame) {
-            
-        //     $conexion = connect::con();
-        //     $res = mysqli_query($conexion, $sql);
-        //     connect::close($conexion);
-        // }
     }

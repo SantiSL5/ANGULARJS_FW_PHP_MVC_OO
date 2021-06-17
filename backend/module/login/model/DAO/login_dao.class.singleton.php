@@ -232,7 +232,6 @@
             $token=$_POST['token'];
             if ($token) {
                 $v_token=$this->$middleware->decode($token);
-                // var_dump($v_token);
                 if ($v_token['invalid_token']) {
                     $result[0]=false;
                     $result['invalid_token']=true;

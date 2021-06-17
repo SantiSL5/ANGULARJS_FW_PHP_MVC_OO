@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
-  `iduser` int(11) NOT NULL,
+  `iduser` varchar(45) NOT NULL,
   `idvideogame` int(11) NOT NULL,
   `cant` int(11) DEFAULT NULL,
   PRIMARY KEY (`iduser`,`idvideogame`)
@@ -74,7 +74,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES ('Accion','/module/home/view/img/accion.jpeg'),('Aventura','/module/home/view/img/aventura.jpeg'),('Carreras','/module/home/view/img/carreras.jpeg'),('Deporte','/module/home/view/img/deporte.jpeg'),('Estrategia','/module/home/view/img/estrategia.jpeg'),('Musica','/module/home/view/img/musica.jpeg'),('Puzzle','/module/home/view/img/puzzle.jpeg'),('Sandbox','/module/home/view/img/sandbox.jpg'),('Shooter','/module/home/view/img/shooter.jpeg'),('Simulacion','/module/home/view/img/simulacion.jpg');
+INSERT INTO `category` VALUES ('Accion','/frontend/assets/img/accion.jpeg'),('Aventura','/frontend/assets/img/aventura.jpeg'),('Carreras','/frontend/assets/img/carreras.jpeg'),('Deporte','/frontend/assets/img/deporte.jpeg'),('Estrategia','/frontend/assets/img/estrategia.jpeg'),('Musica','/frontend/assets/img/musica.jpeg'),('Puzzle','/frontend/assets/img/puzzle.jpeg'),('Sandbox','/frontend/assets/img/sandbox.jpg'),('Shooter','/frontend/assets/img/shooter.jpeg'),('Simulacion','/frontend/assets/img/simulacion.jpg');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +86,7 @@ DROP TABLE IF EXISTS `favorites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `favorites` (
-  `iduser` int(11) NOT NULL,
+  `iduser` varchar(45) NOT NULL,
   `idvideogame` int(11) NOT NULL,
   PRIMARY KEY (`iduser`,`idvideogame`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -98,6 +98,7 @@ CREATE TABLE `favorites` (
 
 LOCK TABLES `favorites` WRITE;
 /*!40000 ALTER TABLE `favorites` DISABLE KEYS */;
+INSERT INTO `favorites` VALUES ('LU_60c10d8121125560119082',2),('LU_60c10d8121125560119082',15);
 /*!40000 ALTER TABLE `favorites` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -163,7 +164,7 @@ CREATE TABLE `orderlines` (
   `cant` int(11) DEFAULT NULL,
   `totalprice` int(11) DEFAULT NULL,
   PRIMARY KEY (`idline`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,6 +173,7 @@ CREATE TABLE `orderlines` (
 
 LOCK TABLES `orderlines` WRITE;
 /*!40000 ALTER TABLE `orderlines` DISABLE KEYS */;
+INSERT INTO `orderlines` VALUES (1,1,14,2,70),(2,1,15,1,125),(3,2,1,1,30),(4,2,2,1,40),(5,2,3,1,23),(6,2,9,1,34),(7,2,14,3,105),(8,2,16,1,12),(9,3,9,1,34),(10,3,13,1,105),(11,3,14,1,35),(12,3,15,1,125),(13,4,1,1,30);
 /*!40000 ALTER TABLE `orderlines` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,11 +186,11 @@ DROP TABLE IF EXISTS `orders`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
   `idorder` int(11) NOT NULL AUTO_INCREMENT,
-  `iduser` int(11) NOT NULL,
+  `iduser` varchar(45) NOT NULL,
   `totalprice` int(11) DEFAULT NULL,
   `state` int(1) DEFAULT NULL,
   PRIMARY KEY (`idorder`,`iduser`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,6 +199,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (1,'LU_60c10d8121125560119082',195,0),(2,'LU_60c10d8121125560119082',244,0),(3,'LU_60c10d8121125560119082',299,0),(4,'LU_60c10d8121125560119082',30,0);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,7 +224,7 @@ CREATE TABLE `plataform` (
 
 LOCK TABLES `plataform` WRITE;
 /*!40000 ALTER TABLE `plataform` DISABLE KEYS */;
-INSERT INTO `plataform` VALUES ('3DS','/module/home/view/img/general.png'),('DS','/module/home/view/img/general.png'),('PC','/module/home/view/img/general.png'),('PS1','/module/home/view/img/general.png'),('PS2','/module/home/view/img/general.png'),('PS3','/module/home/view/img/general.png'),('PS4','/module/home/view/img/general.png'),('PS5','/module/home/view/img/general.png'),('SWITCH','/module/home/view/img/general.png'),('WII','/module/home/view/img/general.png'),('XBOX1','/module/home/view/img/general.png'),('XBOX360','/module/home/view/img/general.png');
+INSERT INTO `plataform` VALUES ('3DS','/frontend/assets/img/general.png'),('DS','/frontend/assets/img/general.png'),('PC','/frontend/assets/img/general.png'),('PS1','/frontend/assets/img/general.png'),('PS2','/frontend/assets/img/general.png'),('PS3','/frontend/assets/img/general.png'),('PS4','/frontend/assets/img/general.png'),('PS5','/frontend/assets/img/general.png'),('SWITCH','/frontend/assets/img/general.png'),('WII','/frontend/assets/img/general.png'),('XBOX1','/frontend/assets/img/general.png'),('XBOX360','/frontend/assets/img/general.png');
 /*!40000 ALTER TABLE `plataform` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +256,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('GU_fLkLxm0jdTf2MxJxhWOvhVpwtHl2','Santiago Soler Llin','santiagosolerllin@gmail.com','','client','https://lh3.googleusercontent.com/a/AATXAJyRsOu1VoJ5N8F2RpvgrSGN1KyvcfHfETGtGSDw=s96-c',NULL),('LU_60a78f3a45334445829040','SantiSL5','santisolerllin@gmail.com','$2y$10$johsHBj0ITPLn97MyYp9UOTlS21qRp.0WIgVpGzRAKXQpxl9yEpAy','client','https://www.gravatar.com/avatar/7e55a9727854e9550e7b66de77a00b78?s=40&d=identicon','true');
+INSERT INTO `users` VALUES ('GU_fLkLxm0jdTf2MxJxhWOvhVpwtHl2','Santiago Soler Llin','santiagosolerllin@gmail.com','','client','https://lh3.googleusercontent.com/a/AATXAJyRsOu1VoJ5N8F2RpvgrSGN1KyvcfHfETGtGSDw=s96-c',NULL),('LU_60c10d8121125560119082','SantiSL5','santisolerllin@gmail.com','$2y$10$kCpiGzc60WGECNvmpHjmsudd4RN/Q35SLRZ5HSoHBd4Ezwk.oHliW','client','https://www.gravatar.com/avatar/7e55a9727854e9550e7b66de77a00b78?s=40&d=identicon','true');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,7 +268,7 @@ DROP TABLE IF EXISTS `videogames`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `videogames` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(45) NOT NULL,
   `code` varchar(45) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
   `companyia` varchar(45) DEFAULT NULL,
@@ -280,7 +283,7 @@ CREATE TABLE `videogames` (
   `views` varchar(45) DEFAULT '0',
   `likes` varchar(45) DEFAULT '0',
   PRIMARY KEY (`id`,`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,7 +292,7 @@ CREATE TABLE `videogames` (
 
 LOCK TABLES `videogames` WRITE;
 /*!40000 ALTER TABLE `videogames` DISABLE KEYS */;
-INSERT INTO `videogames` VALUES (1,'123sasass','embestida','asdfasfd','17/01/2021','3','Nuevo','Accion:Shooter:Estrategia:Simulacion:Deporte:Carreras:Aventura:Sandbox:Musica:Puzzle','PC',30,'39','/module/shop/view/img/general.png','100','0'),(2,'123sesese','alalbamirar','dfadsf','16/01/2021','3','Nuevo','Accion:Shooter:Estrategia','PS4',40,'6','/module/shop/view/img/general.png','27','0'),(3,'321asdasd','dungeons','dsafjksadfhj','16/01/2021','3','Nuevo','Accion:Shooter:Estrategia:Carreras:Aventura:Sandbox','XBOX1',23,'49','/module/shop/view/img/general.png','1','0'),(4,'432asjsda','dragons','hsafdhjgdgiu','16/01/2021','12','Segunda Mano','Accion:Shooter:Estrategia:Aventura','XBOX360',43,'23','/module/shop/view/img/general.png','0','0'),(5,'321ghdhds','legueofbikes','gdsagshiu','22/01/2021','18','Nuevo','Accion:Simulacion:Deporte:Puzzle','DS',27,'15','/module/shop/view/img/general.png','0','0'),(6,'432jhdaho','olassalvajes','dasfhkjds','16/02/2021','16','Segunda Mano','Accion:Shooter:Simulacion:Carreras','3DS',54,'50','/module/shop/view/img/general.png','0','0'),(7,'341acdwes','festival','adsfsdaf','15/02/2021','3','Nuevo','Shooter:Simulacion:Carreras','SWITCH',75,'40','/module/shop/view/img/general.png','0','0'),(8,'531rgewsa','orotodo','sdafasdf','16/01/2021','16','Nuevo','Shooter:Estrategia:Simulacion','PS3',46,'35','/module/shop/view/img/general.png','0','0'),(9,'762gdhssa','mujasa','dsafasfd','23/01/2021','16','Nuevo','Shooter:Estrategia:Simulacion','PS2',34,'25','/module/shop/view/img/general.png','0','0'),(10,'432hdjskd','hidroworld','sdfsadfasfd','16/02/2021','16','Nuevo','Shooter:Estrategia:Simulacion','PS1',34,'64','/module/shop/view/img/general.png','0','0'),(11,'543dshsjk','naturaleza','sadfsadf','16/01/2021','16','Segunda Mano','Accion:Simulacion:Deporte','WII',25,'11','/module/shop/view/img/general.png','1','0'),(12,'314dshgsd','exploration','joepwa','17/02/2021','16','Nuevo','Accion:Simulacion:Deporte','PS5',35,'23','/module/shop/view/img/general.png','0','0'),(13,'124fjskgl','3Dentreteinment','asdfsdaf','17/02/2021','18','Segunda Mano','Shooter:Simulacion:Carreras','PS5',105,'24','/module/shop/view/img/general.png','0','0'),(14,'642haejcl','toroloco','asdfdsaf','17/02/2021','18','Segunda Mano','Accion:Simulacion:Deporte','DS',35,'48','/module/shop/view/img/general.png','6','0'),(15,'124fjskgp','corre','fasdea','17/02/2021','18','Nuevo','Shooter:Simulacion:Carreras','PS5',125,'47','/module/shop/view/img/general.png','5','0'),(16,'134fjsjrd','lupon','afdsf','17/02/2021','18','Segunda Mano','Accion:Simulacion:Deporte','WII',12,'5','/module/shop/view/img/general.png','0','0'),(17,'174fjsjrd','jurni','asdfdsaf','17/02/2021','18','Nuevo','Accion:Simulacion:Deporte','DS',67,'2','/module/shop/view/img/general.png','0','0');
+INSERT INTO `videogames` VALUES ('1','123sasass','embestida','asdfasfd','17/01/2021','3','Nuevo','Accion:Shooter:Estrategia:Simulacion:Deporte:Carreras:Aventura:Sandbox:Musica:Puzzle','PC',30,'37','/frontend/assets/img/general.png','101','0'),('10','432hdjskd','hidroworld','sdfsadfasfd','16/02/2021','16','Nuevo','Shooter:Estrategia:Simulacion','PS1',34,'64','/frontend/assets/img/general.png','0','0'),('11','543dshsjk','naturaleza','sadfsadf','16/01/2021','16','Segunda Mano','Accion:Simulacion:Deporte','WII',25,'11','/frontend/assets/img/general.png','1','0'),('12','314dshgsd','exploration','joepwa','17/02/2021','16','Nuevo','Accion:Simulacion:Deporte','PS5',35,'23','/frontend/assets/img/general.png','0','0'),('13','124fjskgl','3Dentreteinment','asdfsdaf','17/02/2021','18','Segunda Mano','Shooter:Simulacion:Carreras','PS5',105,'23','/frontend/assets/img/general.png','0','0'),('14','642haejcl','toroloco','asdfdsaf','17/02/2021','18','Segunda Mano','Accion:Simulacion:Deporte','DS',35,'42','/frontend/assets/img/general.png','12','0'),('15','124fjskgp','corre','fasdea','17/02/2021','18','Nuevo','Shooter:Simulacion:Carreras','PS5',125,'45','/frontend/assets/img/general.png','10','1'),('16','134fjsjrd','lupon','afdsf','17/02/2021','18','Segunda Mano','Accion:Simulacion:Deporte','WII',12,'4','/frontend/assets/img/general.png','0','0'),('17','174fjsjrd','jurni','asdfdsaf','17/02/2021','18','Nuevo','Accion:Simulacion:Deporte','DS',67,'0','/frontend/assets/img/general.png','0','0'),('2','123sesese','alalbamirar','dfadsf','16/01/2021','3','Nuevo','Accion:Shooter:Estrategia','PS4',40,'5','/frontend/assets/img/general.png','42','1'),('3','321asdasd','dungeons','dsafjksadfhj','16/01/2021','3','Nuevo','Accion:Shooter:Estrategia:Carreras:Aventura:Sandbox','XBOX1',23,'48','/frontend/assets/img/general.png','1','0'),('4','432asjsda','dragons','hsafdhjgdgiu','16/01/2021','12','Segunda Mano','Accion:Shooter:Estrategia:Aventura','XBOX360',43,'23','/frontend/assets/img/general.png','0','0'),('5','321ghdhds','legueofbikes','gdsagshiu','22/01/2021','18','Nuevo','Accion:Simulacion:Deporte:Puzzle','DS',27,'15','/frontend/assets/img/general.png','0','0'),('6','432jhdaho','olassalvajes','dasfhkjds','16/02/2021','16','Segunda Mano','Accion:Shooter:Simulacion:Carreras','3DS',54,'50','/frontend/assets/img/general.png','0','0'),('7','341acdwes','festival','adsfsdaf','15/02/2021','3','Nuevo','Shooter:Simulacion:Carreras','SWITCH',75,'40','/frontend/assets/img/general.png','0','0'),('8','531rgewsa','orotodo','sdafasdf','16/01/2021','16','Nuevo','Shooter:Estrategia:Simulacion','PS3',46,'35','/frontend/assets/img/general.png','0','0'),('9','762gdhssa','mujasa','dsafasfd','23/01/2021','16','Nuevo','Shooter:Estrategia:Simulacion','PS2',34,'23','/frontend/assets/img/general.png','0','0');
 /*!40000 ALTER TABLE `videogames` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,7 +313,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `add_Quant`(videogameid int, userid int)
+CREATE DEFINER=`root`@`%` PROCEDURE `add_Quant`(videogameid int, userid VARCHAR(45))
 BEGIN
 	DECLARE stock INT;
 	DECLARE quant INT;
@@ -328,11 +331,9 @@ BEGIN
     );
     IF exist<>0 and exist_videogame<>0 THEN
 		SET stock=(
-		SELECT v.unidades
-        FROM videogames v
-        INNER JOIN cart c
-        ON c.idvideogame=v.id
-        WHERE c.idvideogame=videogameid && c.iduser=userid
+			SELECT unidades
+			FROM videogames v
+			WHERE id=videogameid
 		);
 		SET quant=(
 			SELECT c.cant
@@ -341,23 +342,36 @@ BEGIN
 			ON c.idvideogame=v.id
 			WHERE c.idvideogame=videogameid && c.iduser=userid
 		);
-		IF stock>=quant+1 THEN
-			UPDATE cart 
-			SET cant=cant+1
-			WHERE idvideogame=videogameid && iduser=userid;
-			SELECT 1 AS result,quant+1 AS quant;
+		IF stock=0 THEN
+			SELECT 2 AS result;
 		ELSE
-			SELECT 0 AS result,quant;
+			IF stock>=quant+1 THEN
+				UPDATE cart 
+				SET cant=cant+1
+				WHERE idvideogame=videogameid && iduser=userid;
+				SELECT 1 AS result,quant+1 AS quant;
+			ELSE
+				SELECT 0 AS result,quant;
+			END IF;
 		END IF;
 	ELSE IF exist_videogame<>0 THEN
-		INSERT cart (iduser,idvideogame,cant)
-		VALUES (userid,videogameid,1);
-		SELECT 1 AS result, 1 AS quant;
+		SET stock=(
+			SELECT unidades
+			FROM videogames v
+			WHERE id=videogameid
+		);
+		IF stock=0 THEN
+			SELECT 2 AS result;
+		ELSE
+			SELECT userid;
+			INSERT cart (iduser,idvideogame,cant)
+			VALUES (userid,videogameid,1);
+			SELECT 1 AS result, 1 AS quant;
+		END IF;
 	ELSE
 		SELECT NULL AS result;
 	END IF;
     END IF;
-
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -374,7 +388,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `order_complete`(userid int)
+CREATE DEFINER=`root`@`%` PROCEDURE `order_complete`(userid VARCHAR(45))
 BEGIN
 	DECLARE total_order INT;
     DECLARE actual_order INT;
@@ -443,7 +457,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `subst_Quant`(videogameid int, userid int)
+CREATE DEFINER=`root`@`%` PROCEDURE `subst_Quant`(videogameid int, userid VARCHAR(45))
 BEGIN
 	DECLARE stock INT;
 	DECLARE quant INT;
@@ -491,7 +505,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `totalCart`(userid int)
+CREATE DEFINER=`root`@`%` PROCEDURE `totalCart`(userid VARCHAR(45))
 BEGIN
 	SELECT SUM(c.cant*v.precio) AS totalCart
 	FROM cart c
@@ -532,4 +546,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-24  4:05:51
+-- Dump completed on 2021-06-17  3:53:40

@@ -2,12 +2,10 @@
 
 class cart_bll {
     private $dao;
-    // private $db;
     static $_instance;
 
     private function __construct() {
         $this->dao = cart_dao::getInstance();
-        //$this->db = db::getInstance();
     }
 
 
