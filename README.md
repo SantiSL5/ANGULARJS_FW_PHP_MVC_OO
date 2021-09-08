@@ -78,6 +78,6 @@ Translate | This module is implemented in the headbar, it translates using JSON 
 * [Boostrap](https://getbootstrap.com/)
 * [OWL Carousel](https://owlcarousel2.github.io/OwlCarousel2/)
 * [Firebase](https://firebase.google.com/)
+* [Gravatar](https://es.gravatar.com/)
 * Toastr: [CSS](https://npmcdn.com/angular-toastr/dist/angular-toastr.css) [JS](https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js)
 * rzSlider: [JS](https://github.com/rzajac/angularjs-slider.git)
-* gravatar: [Gravatar](https://es.gravatar.com/)
